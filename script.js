@@ -1,28 +1,36 @@
 let currentPokemon;
+let pokemonList;
+let pokemonData;
 
 
-
-async function loadPokemon() {
-    let url = `https://pokeapi.co/api/v2/pokemon/charmander`;
+async function iteratePokemonList() {
+    let url = `https://pokeapi.co/api/v2/pokemon/?offset=40&limit=40`;
     let response = await fetch(url);
-    currentPokemon = await response.json();
-    console.log('loadedPokemon =', currentPokemon)
-
-    renderCharmander()
+    pokemonList = await response.json();
+    for (let i = 0; i < pokemonList.results.length; i++) {
+        currentPokemon = pokemonList.results[i].name;
+        console.log(pokemonList.results[i].name);
+        loadPokemon(i);
+    }
 }
 
-function renderCharmander() {
-    let PokeName = currentPokemon.name.charAt(0).toUpperCase() + currentPokemon.name.slice(1);
-    let PokeElement = currentPokemon.types[0].type.name.charAt(0).toUpperCase() + currentPokemon.types[0].type.name.slice(1)
-    let PokeImage = currentPokemon.sprites.other['official-artwork'].front_default;
+async function loadPokemon(i) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`;
+    let response = await fetch(url);
+    pokemonData = await response.json();
+    console.log('loadedPokemon =', pokemonData);
+    renderPokemon(i);
+}
+
+
+function renderPokemon(i) {
+    let PokeName = pokemonData.species.name.charAt(0).toUpperCase() + pokemonData.species.name.slice(1);
+    let PokeImage = pokemonData.sprites.other['official-artwork'].front_default;
     let PokeDex = document.getElementById('pokedex');
     PokeDex.innerHTML +=/*html*/ `
-        <div id="pokeMon">
-            <h1 id="pokemonName"><img class="poke-ball-name" src="img/Pokeball.png" alt="">${PokeName}</h1>
-            <div class="elements">
-            <span>${PokeElement}</span>
-            <span></span>
-            <span></span>
+        <div class="pokeMon">
+            <h1 class="pokemonName"><img class="poke-ball-name" src="img/Pokeball.png" alt="">${PokeName}</h1>
+            <div id="elements${i}" class="elements">
             </div>
             <img class="poke-ball-background-2" src="img/pokeballbackground2.png" alt="">
             <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
@@ -30,6 +38,19 @@ function renderCharmander() {
             <div class="info-container">      
             </div>
         </div>
-    `;
+    `
+    insertElements(i)
+
+    ;
+}
+
+function insertElements(i){
+    for (let j = 0; j < pokemonData.types.length; j++) {
+        const element = pokemonData.types[j].type.name;
+        console.log('element is = ', pokemonData.types[j].type.name);
+        document.getElementById('elements' + i).innerHTML +=/*html*/ `
+        <span>${element}</span>
+        `;
+    }
 }
 
