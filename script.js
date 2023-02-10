@@ -46,7 +46,7 @@ function renderPokemon(i) {
   let PokeDex = document.getElementById('pokedex');
   PokeDex.innerHTML +=/*html*/ `
         <div onclick="" id="pokeMon${i}" class="pokeMon">
-            <h1 class="pokemonName"><img class="poke-ball-name" src="img/bug.png" alt="">${PokeName}</h1>
+            <h1 class="pokemonName"><img class="poke-ball-name" src="img/Pokeball.png" alt="">${PokeName}</h1>
             <div id="elements${i}" class="elements">
             </div>
             <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
@@ -61,12 +61,12 @@ function insertElements(i) {
     const element = pokemonData.types[j].type.name.charAt(0).toUpperCase() + pokemonData.types[j].type.name.slice(1);
     // console.log('element is = ', pokemonData.types[j].type.name);
     document.getElementById('elements' + i).innerHTML +=/*html*/ `
-        <span> <img src="img/bug.png" alt=""> ${element}</span>
+        <span> <img src="img/Pokeball.png" alt=""> ${element}</span>
         `;
   }
 }
 
-async function loadPokemonSpecies(){
+async function loadPokemonSpecies() {
   let url = `https://pokeapi.co/api/v2/pokemon-species/${currentPokemon}`;
   let response = await fetch(url);
   pokemonSpecies = await response.json();
@@ -74,29 +74,57 @@ async function loadPokemonSpecies(){
 
 function insertInfoContainer(i) {
   document.getElementById('info-container' + i).innerHTML +=/*html*/ `
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <p onclick="activateTab(${i})" id="aboutTab${i}" class="nav-link nav-link-${i} active" aria-current="page">About</p>
-    </li>
-    <li class="nav-item">
-     <p onclick="activateTab(${i})" id="statsTab${i}" class="nav-link nav-link-${i}">Stats</p>
-   </li>
-    <li class="nav-item">
-      <p onclick="activateTab(${i})" id="evoTab${i}" class="nav-link nav-link-${i}">Evolution</p>
-    </li>
-    <li class="nav-item">
-      <p onclick="activateTab(${i})" id="movesTab${i}" class="nav-link nav-link-${i}">Moves</p>
-    </li>
-  </ul>`;
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="statsTab${i}" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Stats</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="evoTab${i}" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Evolution</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="movesTab${i}" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Moves</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane tab-pane-${i} fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">asfaf.</div>
+  <div class="tab-pane tab-pane-${i} fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">.434353545343</div>
+  <div class="tab-pane tab-pane-${i} fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">.gsgsdgsdgsdg.</div>
+  <div class="tab-pane tab-pane-${i} fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">.gsgsdgsdgsdg.</div>
+</div>
+`;
 }
 
 function activateTab(i) {
-  let tabs = document.querySelectorAll('.nav-link-'+ i);
-  tabs.forEach(tab => tab.classList.remove('active'));
-  const target = event.target || event.srcElement;
-  if (target.classList.contains('nav-link')) {
-    target.classList.add('active');
-  }
+  let clickedTab = event.srcElement || event.target;
+  let tabs = document.querySelectorAll('.nav-link-' + i);
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+  });
+  clickedTab.classList.add('active');
+
+  let divs = document.querySelectorAll('.tab-pane-' + i);
+  divs.forEach(div => {
+    div.classList.remove('show', 'active');
+  });
+  document.querySelector(clickedTab.dataset.bsTarget).classList.add('show', 'active');
 }
 
-//let PokeName = pokemonSpecies.names[5].name
+/* -------------- chart ------------- */
+
+// function activateTab(i) {
+//   let tabs = document.querySelectorAll('.nav-link-' + i);
+//   tabs.forEach(tab => tab.classList.remove('active'));
+//   const target = event.target || event.srcElement;
+//   if (target.classList.contains('nav-link')) {
+//     target.classList.add('active');
+//   }
+//   let divs = document.querySelectorAll('tab-pane-' + i);
+//   divs.forEach(tab => tab.classList.remove('show', 'active'));
+//   const box = event.box || event.srcElement;
+//   if (box.classList.contains('nav-link')) {
+//     box.classList.add('active');
+//   }
+// }
