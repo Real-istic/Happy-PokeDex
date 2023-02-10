@@ -102,7 +102,7 @@ span img{
   z-index: 2;
 }
 
-/* will be stored in an onclick function */
+/* below will be stored in an onclick function */
 
 .pokeMon:hover {
   /* position: absolute; */
@@ -113,7 +113,7 @@ span img{
   /* left: 40%; */
 }
 
-/* ---------------------------*/
+/* -------- above will be stored in an onclick function-----*/
 
 #pokemonImage {
   position: absolute;
@@ -141,10 +141,11 @@ span img{
 }
 
 .info-container {
-  background-color: rgb(255, 255, 255);
+  background: rgb(252, 252, 252);
   background-image: url(img/pokeballbackground2.png);
   background-size: 67%;
-  background-position: 43% 117%;
+  /* background-size: 100%; */
+  background-position: 30% 120%;
   background-repeat: no-repeat;
   border: 5px outset rgb(255, 250, 0);
   border-radius: 25px;
@@ -164,7 +165,7 @@ span img{
 
 .nav-link {
   padding: 8px !important;
-  color: rgb(224, 224, 224) !important;
+  color: rgb(151, 151, 151) !important;
   font-size: 14px !important;
   font-weight: bold !important;
   cursor: pointer;
@@ -173,9 +174,68 @@ span img{
 
 .active {
   color: #000000 !important;
-  background-color: rgb(253, 255, 154) !important;
+  /* background-color: rgb(253, 255, 154) !important; */
   transition: all 150ms ease-in-out;
 }
+
+/*---------- CHART CLASSES ----------*/
+
+.chart-box{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tab-content{
+
+}
+
+.progress {
+  margin: 5px 5px 5px 5px;
+  background-color: transparent!important;
+}
+
+.progress-bar {
+  border-radius: 15px;
+  /* color: rgb(255, 255, 255)!important; */
+  display: flex;
+  align-items: center!important;
+  text-align: center;
+}
+
+.bg-hp {
+  background: linear-gradient(to bottom, #ffaeae 0%, #df1414 50%, #ffc1c1 100%);
+  border: 2px outset yellow;
+}
+
+.bg-attack, .bg-defense {
+  background: linear-gradient(to bottom, #90E682 0%, #229A18 50%, #87DF78 100%);
+  border: 2px outset yellow;
+
+}
+
+.bg-special-attack, .bg-special-defense {
+  background: linear-gradient(to bottom, #FFFF6D 0%, #b8be00 50%, #FCFF62 100%);
+  border: 2px outset yellow;
+
+}
+
+.bg-speed {
+  background: linear-gradient(to bottom, #00AAFF 0%, #007cad 50%, #00B6FF 100%);
+  border: 2px outset yellow;
+
+}
+
+
+
+
+
+
+
+
 
 /* ------------- FONTS ------------- */
 

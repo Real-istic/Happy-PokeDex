@@ -76,25 +76,34 @@ function insertInfoContainer(i) {
   document.getElementById('info-container' + i).innerHTML +=/*html*/ `
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About</button>
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#about-tab-pane${i}" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="statsTab${i}" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Stats</button>
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="statsTab${i}" data-bs-toggle="tab" data-bs-target="#stats-tab-pane${i}" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Stats</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="evoTab${i}" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Evolution</button>
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="evoTab${i}" data-bs-toggle="tab" data-bs-target="#evolution-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Evolution</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="movesTab${i}" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Moves</button>
+    <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="movesTab${i}" data-bs-toggle="tab" data-bs-target="#moves-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Moves</button>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane tab-pane-${i} fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">asfaf.</div>
-  <div class="tab-pane tab-pane-${i} fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">.434353545343</div>
-  <div class="tab-pane tab-pane-${i} fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">.gsgsdgsdgsdg.</div>
-  <div class="tab-pane tab-pane-${i} fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">.gsgsdgsdgsdg.</div>
+  <div class="tab-pane tab-pane-${i} fade show active" id="about-tab-pane${i}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  About in here
+  </div>
+  <div class="tab-pane tab-pane-${i} fade" id="stats-tab-pane${i}" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+  stats
+</div>
+  <div class="tab-pane tab-pane-${i} fade" id="evolution-tab-pane${i}" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+  Evolution in here
+</div>
+  <div class="tab-pane tab-pane-${i} fade" id="moves-tab-pane${i}" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+  Moves in here
+</div>
 </div>
 `;
+insertStats(i)
 }
 
 function activateTab(i) {
@@ -114,17 +123,30 @@ function activateTab(i) {
 
 /* -------------- chart ------------- */
 
-// function activateTab(i) {
-//   let tabs = document.querySelectorAll('.nav-link-' + i);
-//   tabs.forEach(tab => tab.classList.remove('active'));
-//   const target = event.target || event.srcElement;
-//   if (target.classList.contains('nav-link')) {
-//     target.classList.add('active');
-//   }
-//   let divs = document.querySelectorAll('tab-pane-' + i);
-//   divs.forEach(tab => tab.classList.remove('show', 'active'));
-//   const box = event.box || event.srcElement;
-//   if (box.classList.contains('nav-link')) {
-//     box.classList.add('active');
-//   }
-// }
+function insertStats(i) {
+  let statsTab = document.getElementById('stats-tab-pane' + i);
+  statsTab.innerHTML =/*html*/ `
+  <div class="chart-box">
+      <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-hp" style="width: 25%">HP</div>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-attack" style="width: 50%">ATK</div>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-defense" style="width: 75%">DEF</div>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-special-attack" style="width: 100%; padding-bottom: 3px;">S-ATK</div>
+      </div> 
+      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-special-defense" style="width: 100%; padding-bottom: 3px;">S-DEF</div>
+      </div> 
+      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-speed" style="width: 100%">SPD</div>
+      </div> 
+  </div>
+  `;
+}
+
+
