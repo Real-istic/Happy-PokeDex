@@ -6,6 +6,7 @@ let pokemonSpecies;
 let pokeImage;
 let evolutionChain;
 
+
 function onLoad() {
   // setCount()
   iteratePokemonList()
@@ -20,10 +21,10 @@ function onLoad() {
 // }
 
 async function iteratePokemonList() {
-  let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/?offset=110&limit=120/`;
   let response = await fetch(url);
   pokemonList = await response.json();
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < pokemonList.results.length; i++) {
     currentPokemon = pokemonList.results[i].name;
     await loadPokemon();
     await loadPokemonSpecies()
@@ -34,6 +35,7 @@ async function iteratePokemonList() {
     insertAbout(i)
     insertMoves(i)
     await insertEvolution(i)
+    setCardColor(i)
   }
 }
 
@@ -71,6 +73,12 @@ function insertElements(i) {
         <span> <img class="${element}" src="${elementIcon}" alt=""> ${element.charAt(0).toUpperCase() + pokemonData.types[j].type.name.slice(1)}</span>
         `;
   }
+}
+
+function setCardColor(i) {
+  let pokeCard = document.getElementById('pokeMon' + i);
+  let pokeType = pokemonData.types[0].type.name;
+  pokeCard.classList.add('back-' + pokeType);
 }
 
 async function loadPokemonSpecies() {
@@ -187,46 +195,83 @@ function insertMoves(i) {
   }
 }
 
-async function insertEvolution(i) {
-  let url = pokemonSpecies.evolution_chain.url;
-  let evo1 = await loadEvolutionChain(url);
-  evo1 = await evolutionChain.chain.species.name;
-  evo2 = await evolutionChain.chain.evolves_to[0].species.name;
-  evo3 = await evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
 
-  let evolution = document.getElementById('evolution-tab-pane' + i);
-  evolution.innerHTML +=/*html*/ `
-   <h5 class="evo-name">
-      <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
-      ${evo1}
+async function insertEvolution(i) {
+  let evo1;
+  let evo2;
+  let evo3;
+
+  let url = pokemonSpecies.evolution_chain.url;
+  await loadEvolutionChain(url);
+  evo1 = await evolutionChain.chain.species.name;
+  if (evolutionChain.chain.evolves_to[0].species.name) {
+    evo2 = await evolutionChain.chain.evolves_to[0].species.name;
+  }
+  if (evolutionChain.chain.evolves_to[0].evolves_to[0]) {
+    evo3 = await evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
+  }
+
+  let evo1Div = document.getElementById('evolution-tab-pane' + i);
+  evo1Div.innerHTML +=/*html*/ `
+   <h5 class="evo-name" id="evo1Div${i}">
+   <div class="evo-div">
+   <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
+   ${evo1}
+   <div class="evo-div">
    </h5>
-   <img class="arrow-image" src="img/arrowright.png" alt="">
-   <h5 class="evo-name">   
-      <img id="evoImage2-${i}" class="evo-image" src="${await loadPokemonEvolution(evo2)}" alt="">
-      ${evo2}
-   </h5>
-   <img class="arrow-image" src="img/arrowright.png" alt="">
-   <h5 class="evo-name">
-      <img id="evoImage3-${i}" class="evo-image" src="${await loadPokemonEvolution(evo3)}" alt="">
-      ${evo3}
-   </h5>
+   <h5 class="evo-name" id="evo2Div${i}"></h5>
+   <h5 class="evo-name" id="evo3Div${i}"></h5>
   `;
+  if (typeof evo2 !== 'undefined') {
+    await insertEvolution2(i, evo2)
+  } 
+
+  if (typeof evo3 !== 'undefined') {
+    await insertEvolution3(i, evo3)
+  } 
+  evolutionGlow(i, evo1, evo2, evo3)
+}
+
+function evolutionGlow(i, evo1, evo2, evo3) {
   {
     if (evo1 == currentPokemon) {
       document.getElementById('evoImage1-' + i).classList.add('glow')
     } else if (evo2 == currentPokemon) {
       document.getElementById('evoImage2-' + i).classList.add('glow')
-    } else if (evo3 == currentPokemon){
+    } else if (evo3 == currentPokemon) {
       document.getElementById('evoImage3-' + i).classList.add('glow')
     }
-
   }
 }
 
+async function insertEvolution2(i, evo2) {
+  let evo2Div = document.getElementById('evo2Div' + i);
+  evo2Div.innerHTML +=/*html*/ `
+      <img class="arrow-image" src="img/arrowright.png" alt="">
+    <div class="evo-div">
+      <img id="evoImage2-${i}" class="evo-image" src="${await loadPokemonEvolution(evo2)}" alt="">
+      ${evo2}
+    </div>
+  `;
+}
+
+async function insertEvolution3(i, evo3) {
+  let evo3Div = document.getElementById('evo3Div' + i);
+  evo3Div.innerHTML +=/*html*/ `
+    <img class="arrow-image" src="img/arrowright.png" alt="">
+   <div class="evo-div">
+    <img id="evoImage3-${i}" class="evo-image" src="${await loadPokemonEvolution(evo3)}" alt="">
+    ${evo3}
+  </div>
+    `;
+}
+
 async function loadPokemonEvolution(evo) {
-  let url = `https://pokeapi.co/api/v2/pokemon/${evo}`;
-  let response = await fetch(url);
-  evo = await response.json();
-  evo1Image = evo.sprites.other['official-artwork'].front_default;
-  return evo1Image
+  if (evo) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${evo}`;
+    let response = await fetch(url);
+    evo = await response.json();
+    evo1Image = evo.sprites.other['official-artwork'].front_default;
+    return evo1Image
+  }
 }

@@ -1,0 +1,90 @@
+.back-normal {
+  border: 5px outset #A8A77A!important;
+  background: linear-gradient(45deg, #A8A77A 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#A8A77A' */
+}
+.back-fire {
+  border: 5px outset rgba(238, 129, 48, 1)!important;
+  background: linear-gradient(45deg, rgba(238, 129, 48, 1) 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#EE8130' */
+}
+.back-water {
+  border: 5px outset #6390F0!important;
+  background: linear-gradient(45deg, #6390F0 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#6390F0' */
+}
+.back-electric {
+  border: 5px outset #F7D02C!important;
+  background: linear-gradient(45deg, #F7D02C 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#F7D02C' */
+}
+.back-grass {
+  border: 5px outset #7AC74C!important;
+  background: linear-gradient(45deg, #7AC74C 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#7AC74C' */
+}
+.back-ice {
+  border: 5px outset #96D9D6!important;
+  background: linear-gradient(45deg, #96D9D6 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#96D9D6' */
+}
+.back-fighting {
+  border: 5px outset #C22E28!important;
+  background: linear-gradient(45deg, #C22E28 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#C22E28' */
+}
+.back-poison {
+  border: 5px outset #A33EA1!important;
+  background: linear-gradient(45deg, #A33EA1 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#A33EA1' */
+}
+.back-ground {
+  border: 5px outset #E2BF65!important;
+  background: linear-gradient(45deg, #E2BF65 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#E2BF65' */
+}
+.back-flying {
+  border: 5px outset #A98FF3!important;
+  background: linear-gradient(45deg, #A98FF3 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#A98FF3' */
+}
+.back-psychic {
+  border: 5px outset #F95587!important;
+  background: linear-gradient(45deg, #F95587 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#F95587' */
+}
+.back-bug {
+  border: 5px outset #A6B91A!important;
+  background: linear-gradient(45deg, #A6B91A 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#A6B91A' */
+}
+.back-rock {
+  border: 5px outset #B6A136!important;
+  background: linear-gradient(45deg, #B6A136 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#B6A136' */
+}
+.back-ghost {
+  border: 5px outset #735797!important;
+  background: linear-gradient(45deg, #735797 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#735797' */
+}
+.back-dragon {
+  border: 5px outset #6F35FC!important;
+  background: linear-gradient(45deg, #6F35FC 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#6F35FC' */
+}
+.back-dark {
+  border: 5px outset #705746!important;
+  background: linear-gradient(45deg, #705746 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#705746' */
+}
+.back-steel {
+  border: 5px outset #B7B7CE!important;
+  background: linear-gradient(45deg, #B7B7CE 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#B7B7CE' */
+}
+.back-fairy {
+  border: 5px outset #D685AD!important;
+  background: linear-gradient(45deg, #D685AD 66%, rgb(253, 215, 0) 100%)!important;
+  /* '#D685AD' */
+}
