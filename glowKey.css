@@ -1,0 +1,249 @@
+.normal {
+  box-shadow: 0px 0px 10px 5px #a8a77a;
+  animation: glowNormal 1s ease-in-out infinite alternate;
+  /* '#A8A77A' */
+}
+.fire {
+  box-shadow: 0px 0px 10px 5px #ee8130;
+  animation: glowFire 1s ease-in-out infinite alternate;
+  /* '#EE8130' */
+}
+.water {
+  box-shadow: 0px 0px 10px 5px #6390f0;
+  animation: glowWater 1s ease-in-out infinite alternate;
+  /* '#6390F0' */
+}
+.electric {
+  box-shadow: 0px 0px 10px 5px #f7d02c;
+  animation: glowElectric 1s ease-in-out infinite alternate;
+  /* '#F7D02C' */
+}
+.grass {
+  box-shadow: 0px 0px 10px 5px #7ac74c;
+  animation: glowGrass 1s ease-in-out infinite alternate;
+  /* '#7AC74C' */
+}
+.ice {
+  box-shadow: 0px 0px 10px 5px #96d9d6;
+  animation: glowIce 1s ease-in-out infinite alternate;
+  /* '#96D9D6' */
+}
+.fighting {
+  box-shadow: 0px 0px 10px 5px #c22e28;
+  animation: glowFighting 1s ease-in-out infinite alternate;
+  /* '#C22E28' */
+}
+.poison {
+  box-shadow: 0px 0px 10px 5px #a33ea1;
+  animation: glowPoison 1s ease-in-out infinite alternate;
+  /* '#A33EA1' */
+}
+.ground {
+  box-shadow: 0px 0px 10px 5px #e2bf65;
+  animation: glowGround 1s ease-in-out infinite alternate;
+  /* '#E2BF65' */
+}
+.flying {
+  box-shadow: 0px 0px 10px 5px #a98ff3;
+  animation: glowFlying 1s ease-in-out infinite alternate;
+  /* '#A98FF3' */
+}
+.psychic {
+  box-shadow: 0px 0px 10px 5px #f95587;
+  animation: glowPsychic 1s ease-in-out infinite alternate;
+  /* '#F95587' */
+}
+.bug {
+  box-shadow: 0px 0px 10px 5px #a6b91a;
+  animation: glowBug 1s ease-in-out infinite alternate;
+  /* '#A6B91A' */
+}
+.rock {
+  box-shadow: 0px 0px 10px 5px #b6a136;
+  animation: glowRock 1s ease-in-out infinite alternate;
+  /* '#B6A136' */
+}
+.ghost {
+  box-shadow: 0px 0px 10px 5px #735797;
+  animation: glowGhost 1s ease-in-out infinite alternate;
+  /* '#735797' */
+}
+.dragon {
+  box-shadow: 0px 0px 10px 5px #6f35fc;
+  animation: glowDragon 1s ease-in-out infinite alternate;
+  /* '#6F35FC' */
+}
+.dark {
+  box-shadow: 0px 0px 10px 5px #705746;
+  animation: glowDark 1s ease-in-out infinite alternate;
+  /* '#705746' */
+}
+.steel {
+  box-shadow: 0px 0px 10px 5px #b7b7ce;
+  animation: glowSteel 1s ease-in-out infinite alternate;
+  /* '#B7B7CE' */
+}
+.fairy {
+  box-shadow: 0px 0px 10px 5px #d685ad;
+  animation: glowFairy 1s ease-in-out infinite alternate;
+  /* '#D685AD' */
+}
+
+/* @keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+} */
+
+@keyframes glow {
+  to {
+    box-shadow: 0px 0px 20px 15px #000000;
+  }
+}
+
+@keyframes glowImage {
+  to {
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes glowBar {
+  to {
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes glowNormal {
+  to {
+    box-shadow: 0px 0px 20px 15px #a8a77a;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes glowFire {
+  to {
+    box-shadow: 0px 0px 20px 15px #ee8130;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes glowWater {
+  to {
+    box-shadow: 0px 0px 20px 15px #6390f0;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes glowElectric {
+  to {
+    box-shadow: 0px 0px 20px 15px #f7d02c;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowGrass {
+  to {
+    box-shadow: 0px 0px 20px 15px #7ac74c;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowIce {
+  to {
+    box-shadow: 0px 0px 20px 15px #96d9d6;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowFighting {
+  to {
+    box-shadow: 0px 0px 20px 15px #c22e28;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowPoison {
+  to {
+    box-shadow: 0px 0px 20px 15px #a33ea1;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowGround {
+  to {
+    box-shadow: 0px 0px 20px 15px #e2bf65;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowFlying {
+  to {
+    box-shadow: 0px 0px 20px 15px #a98ff3;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowPsychic {
+  to {
+    box-shadow: 0px 0px 20px 15px #f95587;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowBug {
+  to {
+    box-shadow: 0px 0px 20px 15px #a6b91a;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowRock {
+  to {
+    box-shadow: 0px 0px 20px 15px #b6a136;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowGhost {
+  to {
+    box-shadow: 0px 0px 20px 15px #735797;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowDragon {
+  to {
+    box-shadow: 0px 0px 20px 15px #6f35fc;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowDark {
+  to {
+    box-shadow: 0px 0px 20px 15px #705746;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowSteel {
+  to {
+    box-shadow: 0px 0px 20px 15px #b7b7ce;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
+@keyframes glowFairy {
+  to {
+    box-shadow: 0px 0px 20px 15px #d685ad;
+    -webkit-filter: brightness(1.3);
+    filter: brightness(1.3);
+  }
+}
