@@ -1,41 +1,52 @@
 let currentPokemon;
 let pokemonList;
 let pokemonData;
-let count;
 let pokemonSpecies;
 let pokeImage;
 let evolutionChain;
+let count = 0;
+let iCount = 20;
+let isLoading = false;
+
+
 
 
 function onLoad() {
-  // setCount()
   iteratePokemonList()
 }
 
-// async function setCount() {
-//   let url = `https://pokeapi.co/api/v2/pokemon/`;
-//   let response = await fetch(url);
-//   pokemonList = await response.json();
-//   count = pokemonList['count'];
-//   console.log(count);
-// }
-
 async function iteratePokemonList() {
-  let url = `https://pokeapi.co/api/v2/pokemon/?offset=110&limit=120/`;
+  // let url = `https://pokeapi.co/api/v2/pokemon/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
   pokemonList = await response.json();
-  for (let i = 0; i < pokemonList.results.length; i++) {
+  for (let i = count; i < iCount; i++) {
     currentPokemon = pokemonList.results[i].name;
+    // i = (i += iCount);
     await loadPokemon();
-    await loadPokemonSpecies()
+    await loadPokemonSpecies();
     renderPokemon(i);
-    insertElements(i)
-    insertInfoContainer(i)
-    insertStats(i)
-    insertAbout(i)
-    insertMoves(i)
-    await insertEvolution(i)
-    setCardColor(i)
+    insertElements(i);
+    insertInfoContainer(i);
+    insertStats(i);
+    insertAbout(i);
+    insertMoves(i);
+    await insertEvolution(i);
+    setCardColor(i);
+  }
+}
+
+window.addEventListener('scroll', function() {
+  iterateNextPokemonList();
+});
+
+async function iterateNextPokemonList() {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
+      isLoading = true;
+      count += 20;
+      iCount +=20;
+      await iteratePokemonList()
+      isLoading = false;
   }
 }
 
@@ -130,7 +141,7 @@ function activateTab(i) {
   document.querySelector(clickedTab.dataset.bsTarget).classList.add('show', 'active');
 }
 
-/* -------------------------animation test ----------------*/
+/* -------------------------animation test below ----------------*/
 
 // function animateBars(i){
 //   let statsTab = document.getElementById('statsTab'+ i);
@@ -146,7 +157,7 @@ function activateTab(i) {
 //   }
 // }
 
-/* -------------- chart ------------- */
+/* -------------- chart below ------------- */
 
 
 function insertStats(i) {
@@ -175,6 +186,7 @@ function insertStats(i) {
   `;
 }
 
+/* --------------- chart above ---------------- */
 
 function insertAbout(i) {
   let about = pokemonSpecies.flavor_text_entries[1].flavor_text;
@@ -195,43 +207,58 @@ function insertMoves(i) {
   }
 }
 
-
 async function insertEvolution(i) {
   let evo1;
   let evo2;
   let evo3;
-
   let url = pokemonSpecies.evolution_chain.url;
   await loadEvolutionChain(url);
-  evo1 = await evolutionChain.chain.species.name;
-  if (evolutionChain.chain.evolves_to[0].species.name) {
+
+  if (evolutionChain.chain && evolutionChain.chain.species) {
+    evo1 = await evolutionChain.chain.species.name;
+  }
+
+  if (evolutionChain.chain &&
+    evolutionChain.chain.evolves_to &&
+    evolutionChain.chain.evolves_to[0] &&
+    evolutionChain.chain.evolves_to[0].species) {
     evo2 = await evolutionChain.chain.evolves_to[0].species.name;
   }
-  if (evolutionChain.chain.evolves_to[0].evolves_to[0]) {
+
+  if (evolutionChain.chain &&
+    evolutionChain.chain.evolves_to &&
+    evolutionChain.chain.evolves_to[0] &&
+    evolutionChain.chain.evolves_to[0].evolves_to &&
+    evolutionChain.chain.evolves_to[0].evolves_to[0] &&
+    evolutionChain.chain.evolves_to[0].evolves_to[0].species) {
     evo3 = await evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
   }
-
-  let evo1Div = document.getElementById('evolution-tab-pane' + i);
-  evo1Div.innerHTML +=/*html*/ `
-   <h5 class="evo-name" id="evo1Div${i}">
-   <div class="evo-div">
-   <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
-   ${evo1}
-   <div class="evo-div">
-   </h5>
-   <h5 class="evo-name" id="evo2Div${i}"></h5>
-   <h5 class="evo-name" id="evo3Div${i}"></h5>
-  `;
-  if (typeof evo2 !== 'undefined') {
-    await insertEvolution2(i, evo2)
-  } 
-
-  if (typeof evo3 !== 'undefined') {
-    await insertEvolution3(i, evo3)
-  } 
-  evolutionGlow(i, evo1, evo2, evo3)
+  await insertEvolutionHTML(i, evo1, evo2, evo3)
 }
 
+  async function insertEvolutionHTML(i, evo1, evo2, evo3){
+
+    let evo1Div = document.getElementById('evolution-tab-pane' + i);
+    evo1Div.innerHTML +=/*html*/ `
+     <h5 class="evo-name" id="evo1Div${i}">
+     <div class="evo-div">
+     <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
+     ${evo1}
+     <div class="evo-div">
+     </h5>
+     <h5 class="evo-name" id="evo2Div${i}"></h5>
+     <h5 class="evo-name" id="evo3Div${i}"></h5>
+    `;
+    if (typeof evo2 !== 'undefined') {
+      await insertEvolution2(i, evo2)
+    }
+  
+    if (typeof evo3 !== 'undefined') {
+      await insertEvolution3(i, evo3)
+    }
+    evolutionGlow(i, evo1, evo2, evo3)
+  }
+  
 function evolutionGlow(i, evo1, evo2, evo3) {
   {
     if (evo1 == currentPokemon) {

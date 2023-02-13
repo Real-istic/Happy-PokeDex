@@ -27,7 +27,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  padding: 0 5vw;
+  padding: 10vh 5vw;
   margin-top: 25vh;
 }
 
@@ -45,14 +45,30 @@ body {
   color: white;
   padding: 15px;
   border-radius: 25px;
-  margin-top: -200px;
+  margin-top: -225px;
   margin-left: 60px;
   margin-right: 60px;
-  transform: rotateX(60deg) rotateZ(-35deg) translate3d(-60px, 0px, 30px);
+  transform: rotateX(0deg) rotateZ(0deg) translate3d(-20px, 0px, 10px);
   box-shadow: -80px 60px 15px 5px rgba(255, 255, 255, 0.205);
-  transition: all 0.4s;
+  transition: all 250ms ease;
   transform-style: preserve-3d;
 }
+
+/* below will be stored in an onclick function */
+
+.pokeMon:hover {
+  /* position: absolute; */
+  transform: rotateX(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px) scale(1.2);
+  box-shadow: 0px 0px 25px 20px rgb(0, 255, 213);
+  z-index: 1;
+  transition: all 250ms ease;
+  /* top: 45%; */
+  /* left: 40%; */
+  filter: blur(.0px)
+}
+
+/* -------- above will be stored in an onclick function-----*/
+
 
 .poke-ball {
   width: 45px;
@@ -105,20 +121,6 @@ span img {
   /* box-shadow: 0px 0px 10px 5px #fffb00a4;
   animation: glow 1s ease-in-out infinite alternate; */
 }
-
-
-/* below will be stored in an onclick function */
-
-.pokeMon:hover {
-  /* position: absolute; */
-  transform: rotateX(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px) scale(1.0);
-  box-shadow: 0px 0px 20px 15px rgb(0, 255, 213);
-  z-index: 1;
-  /* top: 20%; */
-  /* left: 40%; */
-}
-
-/* -------- above will be stored in an onclick function-----*/
 
 #pokemonImage {
   position: absolute;
