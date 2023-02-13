@@ -5,7 +5,7 @@ let pokemonSpecies;
 let pokeImage;
 let evolutionChain;
 let count = 0;
-let iCount = 20;
+// let iCount = 20;
 let isLoading = false;
 
 
@@ -20,7 +20,7 @@ async function iteratePokemonList() {
   let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
   pokemonList = await response.json();
-  for (let i = count; i < iCount; i++) {
+  for (let i = count; i < (count + 20); i++) {
     currentPokemon = pokemonList.results[i].name;
     // i = (i += iCount);
     await loadPokemon();
@@ -44,7 +44,7 @@ async function iterateNextPokemonList() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
       isLoading = true;
       count += 20;
-      iCount +=20;
+      // iCount +=20;
       await iteratePokemonList()
       isLoading = false;
   }

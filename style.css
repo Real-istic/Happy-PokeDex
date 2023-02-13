@@ -320,6 +320,10 @@ span img {
   height: 100%;
 }
 
+.fade {
+  transition: opacity 0.0s linear!important;
+}
+
 .evo-image{
   width: 90px;
   object-fit: cover;
