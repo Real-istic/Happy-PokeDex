@@ -22,6 +22,63 @@ body {
   background-size: cover;
 }
 
+header {
+  border-bottom: 10px solid #fef900;
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vh;
+  width: 100%;
+  height: 200px;
+  background-image: url(img/header3.jpg);
+  background-size: cover;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.header-left img {
+  width: 150px;
+}
+
+.header-left h1 {
+  padding: 20px 20px;
+  letter-spacing: 10px;
+  font-weight: bold;
+  font-family: "pokemon_solidnormal";
+  font-size: 60px;
+  font-style: italic;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-size: cover;
+  background-image: linear-gradient(
+    0deg,
+    rgba(246, 255, 0, 1) 0%,
+    rgba(174, 176, 0, 1) 50%,
+    rgba(245, 255, 0, 1) 100%
+  );
+  animation: glowImage 0.8s ease-in-out infinite alternate;
+  /* color: #e0dfdc; */
+  /* background: #556677; */
+  text-shadow: 0 -1px 0 #fef100, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a,
+    0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
+    0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a,
+    0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212,
+    0 22px 30px rgba(0, 0, 0, 0.9);
+}
+
+.below-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+}
+
 #pokedex {
   display: flex;
   justify-content: center;
@@ -64,17 +121,15 @@ body {
   transition: all 250ms ease;
   /* top: 45%; */
   /* left: 40%; */
-  filter: blur(.0px)
+  filter: blur(0px);
 }
 
 /* -------- above will be stored in an onclick function-----*/
 
-
 .poke-ball {
-  width: 45px;
+  width: 30px;
   margin-right: 5px;
   object-fit: contain;
-  animation: rotation 2s infinite linear;
   padding-bottom: 5px;
 }
 
@@ -84,7 +139,7 @@ body {
   justify-content: center;
   text-align: center;
   z-index: 1;
-  padding-right: 35px;
+  padding-right: 15px;
   margin-top: 0;
   margin-bottom: 10px;
   letter-spacing: 1px;
@@ -212,7 +267,6 @@ span img {
   height: fit-content;
 }
 
-
 /*---------- CHART CLASSES ----------*/
 
 .chart-box {
@@ -253,37 +307,26 @@ span img {
 .bg-hp {
   background: linear-gradient(to bottom, #ffaeae 0%, #df1414 50%, #ffc1c1 100%);
   /* border: 2px outset yellow; */
-
 }
 
 .bg-attack,
 .bg-defense {
   background: linear-gradient(to bottom, #90e682 0%, #229a18 50%, #87df78 100%);
   /* border: 2px outset yellow; */
-  
 }
 
 .bg-special-attack,
 .bg-special-defense {
   background: linear-gradient(to bottom, #ffff6d 0%, #b8be00 50%, #fcff62 100%);
   /* border: 2px outset yellow; */
-  
 }
 
 .bg-speed {
   background: linear-gradient(to bottom, #00aaff 0%, #007cad 50%, #00b6ff 100%);
   /* border: 2px outset yellow; */
-  
 }
 
-
 /* --- test --- */
-
-
-
-
-
-
 
 /* --------------- END CHART CLASSES ----------*/
 
@@ -304,7 +347,13 @@ span img {
   text-align: center;
   flex: auto;
   white-space: nowrap;
-  background: linear-gradient(0deg, rgba(255,221,0,1) 0%, rgba(204,170,0,1) 55%, rgba(200,167,1,1) 65%, rgba(255,234,0,1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 221, 0, 1) 0%,
+    rgba(204, 170, 0, 1) 55%,
+    rgba(200, 167, 1, 1) 65%,
+    rgba(255, 234, 0, 1) 100%
+  );
   border: 3px outset rgb(238, 255, 0);
   font-weight: bold;
   border-radius: 25px;
@@ -314,17 +363,17 @@ span img {
 }
 
 .evo-tab {
-  display: flex!important;
-  align-items: center!important;
+  display: flex !important;
+  align-items: center !important;
   justify-content: center;
   height: 100%;
 }
 
 .fade {
-  transition: opacity 0.0s linear!important;
+  transition: opacity 0s linear !important;
 }
 
-.evo-image{
+.evo-image {
   width: 90px;
   object-fit: cover;
 }
@@ -383,4 +432,29 @@ span img {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgb(255, 238, 0);
+}
+
+.loader {
+  position: fixed;
+  top: 0vh;
+  left: 0vw;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* filter: blur(3px); */
+  backdrop-filter: brightness(0.5) blur(2px);
+  border: 3px outset yellow;
+  border-radius: 30px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 5px;
+  font-style: italic;
+}
+
+.loader img {
+  width: 200px;
+  object-fit: cover;
 }

@@ -16,10 +16,13 @@ function onLoad() {
 }
 
 async function iteratePokemonList() {
-  // let url = `https://pokeapi.co/api/v2/pokemon/`;
+isLoading = true;
+checkLoading()
+
   let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
   pokemonList = await response.json();
+
   for (let i = count; i < (count + 20); i++) {
     currentPokemon = pokemonList.results[i].name;
     // i = (i += iCount);
@@ -34,6 +37,8 @@ async function iteratePokemonList() {
     await insertEvolution(i);
     setCardColor(i);
   }
+isLoading = false;
+checkLoading()
 }
 
 window.addEventListener('scroll', function() {
@@ -67,7 +72,7 @@ function renderPokemon(i) {
   let PokeDex = document.getElementById('pokedex');
   PokeDex.innerHTML +=/*html*/ `
       <div onclick="" id="pokeMon${i}" class="pokeMon">
-          <h2 class="pokemonName"><img class="poke-ball" src="img/animatedpokeball.gif" alt="">${PokeName}</h2>
+          <h2 class="pokemonName"><img class="poke-ball" src="img/Pokeball3.png" alt="">${PokeName}</h2>
           <div id="elements${i}" class="elements">
           </div>
           <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
@@ -300,5 +305,14 @@ async function loadPokemonEvolution(evo) {
     evo = await response.json();
     evo1Image = evo.sprites.other['official-artwork'].front_default;
     return evo1Image
+  }
+}
+
+function checkLoading() {
+  if (isLoading) {
+    document.querySelector(".loader").style.visibility = "unset";
+    // setTimeout(checkLoading, 100); 
+  } else {
+    document.querySelector(".loader").style.visibility = "hidden";
   }
 }

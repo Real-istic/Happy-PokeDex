@@ -7,23 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>PokeDex</title>
-    <link rel="shortcut icon" href="img/Pokeball.png" type="image/x-icon">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="fonts.css">
-    <link rel="stylesheet" href="glowKey.css">
-    <link rel="stylesheet" href="cardColors.css">
+    <link rel="shortcut icon" href="./img/Pokeball.png" type="image/x-icon">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./fonts.css">
+    <link rel="stylesheet" href="./glowKey.css">
+    <link rel="stylesheet" href="./cardColors.css">
+    <link rel="stylesheet" href="fonts/pokemonstylesheet.css">
+    <link rel="stylesheet" href="form.css">
     <script src="colors.js"></script>
 </head>
 
 <body onload="onLoad()">
-
-    <div id="pokedex">
-
+    <header>
+        <div class="header-left"><img src="img/pokemon.gif" alt="">
+            <h1>Happy PokeDex</h1>
+        </div>
+    </header>
+    <form class="below-header" for="">
+        <span class="input">
+            <input class="input-field" type="text" required placeholder="search for your Pokemon">
+            <span></span>	
+        </span>
+    </form>
+    <div id="pokedex"></div>
+    <div id="loader" class="loader"><img src="img/pokemon.gif" alt="">
+        <h1>Loading...</h1>
     </div>
-
 
 </body>
 <script src="script.js"></script>
 <!-- <a href="https://www.flaticon.com/de/kostenlose-icons/pokeball" title="pokeball Icons">Pokeball Icons erstellt von Freepik - Flaticon</a> -->
-<!-- Bild von <a href="https://pixabay.com/de/users/tmstbch-3040875/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1572480">Tommaso Tabacchi</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1572480">Pixabay</a> -->
+<!-- Bild von <a href="https://pixabay.com/de/users/tmstbch-3040875/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1572480">Tommaso Tabacchi</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1572480">Pixabay</a>
+<a href="https://www.freepik.com/free-vector/blue-diagonal-hand-draw-stripe-line-background_22099125.htm#query=pokemon%20rough%20dark&position=0&from_view=search&track=ais">Image by vector_corp</a> on Freepik -->
+
 </html>
