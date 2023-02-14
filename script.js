@@ -170,22 +170,22 @@ function insertStats(i) {
   statsTab.innerHTML =/*html*/ `
   <div class="chart-box">
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-hp" style="width: ${pokemonData.stats[0].base_stat}%">${pokemonData.stats[0].base_stat} - HP</div>
+          <div class="progress-bar bg-hp" style="width: ${pokemonData.stats[0].base_stat * 0.7}%">${pokemonData.stats[0].base_stat} - HP</div>
       </div>
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-attack" style="width: ${pokemonData.stats[1].base_stat}%;">${pokemonData.stats[1].base_stat} - ATK</div>
+          <div class="progress-bar bg-attack" style="width: ${pokemonData.stats[1].base_stat * 0.7}%;">${pokemonData.stats[1].base_stat} - ATK</div>
       </div>
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-defense" style="width: ${pokemonData.stats[2].base_stat}%;">${pokemonData.stats[2].base_stat} - DEF</div>
+          <div class="progress-bar bg-defense" style="width: ${pokemonData.stats[2].base_stat * 0.7}%;">${pokemonData.stats[2].base_stat} - DEF</div>
       </div>
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-special-attack" style="width: ${pokemonData.stats[3].base_stat}%; padding-bottom: 1px;">${pokemonData.stats[3].base_stat} - S-ATK</div>
+          <div class="progress-bar bg-special-attack" style="width: ${pokemonData.stats[3].base_stat * 0.7}%; padding-bottom: 1px;">${pokemonData.stats[3].base_stat} - S-ATK</div>
       </div> 
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-special-defense" style="width: ${pokemonData.stats[4].base_stat}%; padding-bottom: 0px;">${pokemonData.stats[4].base_stat} - S-DEF</div>
+          <div class="progress-bar bg-special-defense" style="width: ${pokemonData.stats[4].base_stat * 0.7}%; padding-bottom: 0px;">${pokemonData.stats[4].base_stat} - S-DEF</div>
       </div> 
       <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-speed" style="width: ${pokemonData.stats[5].base_stat}%;">${pokemonData.stats[5].base_stat} - SPD</div>
+          <div class="progress-bar bg-speed" style="width: ${pokemonData.stats[5].base_stat * 0.7}%;">${pokemonData.stats[5].base_stat} - SPD</div>
       </div> 
   </div>
   `;
@@ -311,8 +311,16 @@ async function loadPokemonEvolution(evo) {
 function checkLoading() {
   if (isLoading) {
     document.querySelector(".loader").style.visibility = "unset";
-    // setTimeout(checkLoading, 100); 
+    setTimeout(checkLoading, 200); 
   } else {
     document.querySelector(".loader").style.visibility = "hidden";
   }
 }
+
+
+const inputField = document.getElementsByClassName("input1")[0];
+node.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        // ....
+    }
+});

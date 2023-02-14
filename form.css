@@ -1,10 +1,21 @@
 .input {
 	position: relative;
 	font-size: 1.5em;
-	background: linear-gradient(21deg, #10abff, #1beabd);
+	/* background: linear-gradient(21deg, #10abff, #1beabd); */
+	background-size: 100% 100%;
 	padding: 5px;
 	display: inline-block;
 	border-radius: 9999em;
+	background-size: 250% 250%;
+	
+	background-image: repeating-linear-gradient(
+		-45deg,
+		#10abff 0%,  
+		#1beabd 15%, 
+		#1beabd 30%,  
+		#10abff 45%  
+	);
+    animation: diagonal alternate 2s infinite;
 }
 
 .input *:not(span) {
