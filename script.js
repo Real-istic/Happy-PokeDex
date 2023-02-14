@@ -5,7 +5,7 @@ let pokemonSpecies;
 let pokeImage;
 let evolutionChain;
 let count = 0;
-// let iCount = 20;
+// let iCount = 0;
 let isLoading = false;
 
 
@@ -23,18 +23,18 @@ checkLoading()
   let response = await fetch(url);
   pokemonList = await response.json();
 
-  for (let i = count; i < (count + 20); i++) {
+  for (let i = count; i < (count + 20); (i++)) {
     currentPokemon = pokemonList.results[i].name;
-    // i = (i += iCount);
+    // iCount = i;
     await loadPokemon();
     await loadPokemonSpecies();
     renderPokemon(i);
     insertElements(i);
-    insertInfoContainer(i);
-    insertStats(i);
-    insertAbout(i);
-    insertMoves(i);
-    await insertEvolution(i);
+    // insertInfoContainer(i);
+    // insertStats(i);
+    // insertAbout(i);
+    // insertMoves(i);
+    // await insertEvolution(i);
     setCardColor(i);
   }
 isLoading = false;
@@ -55,8 +55,8 @@ async function iterateNextPokemonList() {
   }
 }
 
-async function loadEvolutionChain(url) {
-  let response = await fetch(url);
+async function loadEvolutionChain() {
+  let response = await fetch(pokemonSpecies.evolution_chain.url);
   evolutionChain = await response.json();
 }
 
@@ -65,6 +65,7 @@ async function loadPokemon() {
   let response = await fetch(url);
   pokemonData = await response.json();
 }
+
 
 function renderPokemon(i) {
   let PokeName = currentPokemon.charAt(0).toUpperCase() + currentPokemon.slice(1);
@@ -77,7 +78,9 @@ function renderPokemon(i) {
           </div>
           <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
           <img id="pokemonImage" src="${pokeImage}" alt="">
-          <div class="info-container" id="info-container${i}"></div>
+          <div class="info-container" id="info-container${i}">
+          <button onclick="getInfos(${i})" class="get-infos"><img src="img/animatedpokeball.gif" alt=""></button>
+          </div>
       </div>`;
 }
 
@@ -103,8 +106,20 @@ async function loadPokemonSpecies() {
   pokemonSpecies = await response.json();
 }
 
+async function getInfos(i) {
+  currentPokemon = pokemonList.results[i].name;
+  await loadPokemon();
+  insertInfoContainer(i);
+  await loadPokemonSpecies();
+  await loadEvolutionChain();
+  insertStats(i);
+  insertAbout(i);
+  insertMoves(i);
+  await insertEvolution(i);
+}
+
 function insertInfoContainer(i) {
-  document.getElementById('info-container' + i).innerHTML +=/*html*/ `
+  document.getElementById('info-container' + i).innerHTML =/*html*/ `
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#about-tab-pane${i}" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About</button>
@@ -216,8 +231,8 @@ async function insertEvolution(i) {
   let evo1;
   let evo2;
   let evo3;
-  let url = pokemonSpecies.evolution_chain.url;
-  await loadEvolutionChain(url);
+  // let url = pokemonSpecies.evolution_chain.url;
+  await loadEvolutionChain();
 
   if (evolutionChain.chain && evolutionChain.chain.species) {
     evo1 = await evolutionChain.chain.species.name;
@@ -318,9 +333,9 @@ function checkLoading() {
 }
 
 
-const inputField = document.getElementsByClassName("input1")[0];
-node.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        // ....
-    }
-});
+// const inputField = document.getElementsByClassName("input1")[0];
+// node.addEventListener("keydown", function(event) {
+//     if (event.key === "Enter") {
+//         // ....
+//     }
+// });

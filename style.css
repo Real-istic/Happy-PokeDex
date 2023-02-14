@@ -184,13 +184,22 @@ span img {
   transition: 120ms all ease-in-out;
 }
 
-#pokemonImage:hover {
-  /* animation: glowImage .3s linear 2 alternate; */
-  /* animation: shake 0.3s; */
-  /* animation-iteration-count: infinite; */
-  /* transform: scale(1.2);
-  transition: 120ms all ease-in-out;
-  z-index: 1; */
+.get-infos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  background-color: transparent;
+}
+
+.get-infos img{
+  object-fit: cover;
+  width: 87%;
+  /* margin-top: 10px; */
+  /* margin-left: 15px; */
+  cursor: pointer;
 }
 
 .poke-ball-background {
