@@ -25,7 +25,7 @@ async function iteratePokemonList() {
     await loadPokemon();
     await loadPokemonSpecies();
     renderPokemon(i);
-    insertElements(i);
+    // insertElements(i);
     // insertInfoContainer(i);
     // insertStats(i);
     // insertAbout(i);
@@ -38,7 +38,7 @@ async function iteratePokemonList() {
 }
 
 window.addEventListener('scroll', function () {
-  if (search!=true) {
+  if (search != true) {
     iterateNextPokemonList();
   }
 });
@@ -69,14 +69,14 @@ function renderPokemon(i) {
   pokeImage = pokemonData.sprites.other['official-artwork'].front_default;
   let PokeDex = document.getElementById('pokedex');
   PokeDex.innerHTML +=/*html*/ `
-      <div onclick="zoomCard(${i})" id="pokeMon${i}" class="pokeMon">
+      <div id="pokeMon${i}" class="pokeMon">
           <h2 class="pokemonName"><img class="poke-ball" src="img/Pokeball3.png" alt="">${PokeName}</h2>
           <div id="elements${i}" class="elements">
           </div>
           <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
           <img id="pokemonImage" src="${pokeImage}" alt="">
           <div class="info-container" id="info-container${i}">
-          <button onclick="getInfos(${i})" class="get-infos"><img src="img/animatedpokeball.gif" alt=""></button>
+          <button id="pokeBall${i}" onclick="getInfos(${i})" class="get-infos"><img src="img/animatedpokeball.gif" alt=""></button>
           </div>
       </div>`;
 }
@@ -85,10 +85,19 @@ function insertElements(i) {
   for (let j = 0; j < pokemonData.types.length; j++) {
     const element = pokemonData.types[j].type.name;
     let elementIcon = icons[element]
-    document.getElementById('elements' + i).innerHTML +=/*html*/ `
+    let elementBox = document.getElementById('elements' + i);
+    elementBox.innerHTML +=/*html*/ `
         <span> <img class="${element}" src="${elementIcon}" alt=""> ${element.charAt(0).toUpperCase() + pokemonData.types[j].type.name.slice(1)}</span>
         `;
   }
+  animateElements(i)
+}
+
+function animateElements(i) {
+  let elementBox = document.getElementById('elements' + i)
+  setTimeout(function () {
+    elementBox.classList.add('animate-element');
+  }, 150);
 }
 
 function setCardColor(i) {
@@ -105,14 +114,24 @@ async function loadPokemonSpecies() {
 
 async function getInfos(i) {
   currentPokemon = pokemonList.results[i].name;
-  await loadPokemon();
-  await loadPokemonSpecies();
-  await loadEvolutionChain();
-  insertInfoContainer(i);
-  insertStats(i);
-  insertAbout(i);
-  insertMoves(i);
-  await insertEvolution(i);
+
+  await animatePokeball(i)
+  setTimeout(async function () {
+    await loadPokemon();
+    await loadPokemonSpecies();
+    await loadEvolutionChain();
+    insertElements(i);
+    insertInfoContainer(i);
+    insertStats(i);
+    insertAbout(i);
+    insertMoves(i);
+    await insertEvolution(i);
+  }, 00);
+}
+
+async function animatePokeball(i) {
+  let pokeBall = document.getElementById('pokeBall' + i)
+  pokeBall.classList.add('animate-pokeball');
 }
 
 function insertInfoContainer(i) {
@@ -132,9 +151,9 @@ function insertInfoContainer(i) {
         </li>
     </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane about-tab tab-pane-${i} fade show active" id="about-tab-pane${i}" role="tabpanel" tabindex="0">
+            <div class="tab-pane about-tab tab-pane-${i} fade show active animate-scale1" id="about-tab-pane${i}" role="tabpanel" tabindex="0">
             </div>
-            <div class="tab-pane tab-pane-${i} fade" id="stats-tab-pane${i}" role="tabpanel" tabindex="0">
+            <div class="tab-pane stats-tab tab-pane-${i} fade" id="stats-tab-pane${i}" role="tabpanel" tabindex="0">
             </div>
             <div class="tab-pane evo-tab tab-pane-${i} fade" id="evolution-tab-pane${i}" role="tabpanel" tabindex="0">
             </div>
@@ -150,12 +169,19 @@ function activateTab(i) {
     tab.classList.remove('active');
   });
   clickedTab.classList.add('active');
-
   let divs = document.querySelectorAll('.tab-pane-' + i);
   divs.forEach(div => {
     div.classList.remove('show', 'active');
   });
   document.querySelector(clickedTab.dataset.bsTarget).classList.add('show', 'active');
+  animateTabPane(clickedTab);
+}
+
+function animateTabPane(clickedTab) {
+  setTimeout(function () {
+    document.querySelector(clickedTab.dataset.bsTarget).classList.add('animate-scale1');
+  }, 0);
+  document.querySelector(clickedTab.dataset.bsTarget).classList.remove('animate-scale1', 'animate-scale0');
 }
 
 /* -------------- chart below ------------- */
@@ -321,6 +347,7 @@ async function searchPokemon() {
   if (inputField == ("")) {
     search = false;
     onLoad();
+    currentPokemon = "bulbasaur";
   }
   if (inputField.length >= 2) {
     search = true;
@@ -338,7 +365,3 @@ async function searchPokemon() {
   }
 }
 
-// function zoomCard(i){
-//   let pokeCard = document.getElementById('pokeMon'+i);
-//   pokeCard.classList.add('pokeMon-zoom');
-// }
