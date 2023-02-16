@@ -16,8 +16,8 @@ function onLoad() {
 }
 
 async function iteratePokemonList() {
-isLoading = true;
-checkLoading()
+  isLoading = true;
+  checkLoading()
 
   let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
@@ -37,21 +37,21 @@ checkLoading()
     // await insertEvolution(i);
     setCardColor(i);
   }
-isLoading = false;
-checkLoading()
+  isLoading = false;
+  checkLoading()
 }
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
   iterateNextPokemonList();
 });
 
 async function iterateNextPokemonList() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
-      isLoading = true;
-      count += 20;
-      // iCount +=20;
-      await iteratePokemonList()
-      isLoading = false;
+    isLoading = true;
+    count += 20;
+    // iCount +=20;
+    await iteratePokemonList()
+    isLoading = false;
   }
 }
 
@@ -109,9 +109,9 @@ async function loadPokemonSpecies() {
 async function getInfos(i) {
   currentPokemon = pokemonList.results[i].name;
   await loadPokemon();
-  insertInfoContainer(i);
   await loadPokemonSpecies();
   await loadEvolutionChain();
+  insertInfoContainer(i);
   insertStats(i);
   insertAbout(i);
   insertMoves(i);
@@ -160,22 +160,6 @@ function activateTab(i) {
   });
   document.querySelector(clickedTab.dataset.bsTarget).classList.add('show', 'active');
 }
-
-/* -------------------------animation test below ----------------*/
-
-// function animateBars(i){
-//   let statsTab = document.getElementById('statsTab'+ i);
-//   let statBars = document.querySelectorAll('.progress-bar');
-//   if (statsTab.classList.contains('active')) {
-//     statBars.forEach(function(statBar){
-//       statBar.style.cssText = 'transform: scaleX(3)!important; transition: 300ms all ease-in-out';
-//     });
-//   } else {
-//     statBars.forEach(function(statBar){
-//       statBar.style.cssText = 'transform: scaleX(3)!important; transition: 300ms all ease-in-out';
-//     });
-//   }
-// }
 
 /* -------------- chart below ------------- */
 
@@ -231,7 +215,6 @@ async function insertEvolution(i) {
   let evo1;
   let evo2;
   let evo3;
-  // let url = pokemonSpecies.evolution_chain.url;
   await loadEvolutionChain();
 
   if (evolutionChain.chain && evolutionChain.chain.species) {
@@ -256,10 +239,10 @@ async function insertEvolution(i) {
   await insertEvolutionHTML(i, evo1, evo2, evo3)
 }
 
-  async function insertEvolutionHTML(i, evo1, evo2, evo3){
+async function insertEvolutionHTML(i, evo1, evo2, evo3) {
 
-    let evo1Div = document.getElementById('evolution-tab-pane' + i);
-    evo1Div.innerHTML +=/*html*/ `
+  let evo1Div = document.getElementById('evolution-tab-pane' + i);
+  evo1Div.innerHTML +=/*html*/ `
      <h5 class="evo-name" id="evo1Div${i}">
      <div class="evo-div">
      <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
@@ -269,16 +252,16 @@ async function insertEvolution(i) {
      <h5 class="evo-name" id="evo2Div${i}"></h5>
      <h5 class="evo-name" id="evo3Div${i}"></h5>
     `;
-    if (typeof evo2 !== 'undefined') {
-      await insertEvolution2(i, evo2)
-    }
-  
-    if (typeof evo3 !== 'undefined') {
-      await insertEvolution3(i, evo3)
-    }
-    evolutionGlow(i, evo1, evo2, evo3)
+  if (typeof evo2 !== 'undefined') {
+    await insertEvolution2(i, evo2)
   }
-  
+
+  if (typeof evo3 !== 'undefined') {
+    await insertEvolution3(i, evo3)
+  }
+  evolutionGlow(i, evo1, evo2, evo3)
+}
+
 function evolutionGlow(i, evo1, evo2, evo3) {
   {
     if (evo1 == currentPokemon) {
@@ -326,16 +309,23 @@ async function loadPokemonEvolution(evo) {
 function checkLoading() {
   if (isLoading) {
     document.querySelector(".loader").style.visibility = "unset";
-    setTimeout(checkLoading, 200); 
+    setTimeout(checkLoading, 200);
   } else {
     document.querySelector(".loader").style.visibility = "hidden";
   }
 }
 
-
-// const inputField = document.getElementsByClassName("input1")[0];
-// node.addEventListener("keydown", function(event) {
-//     if (event.key === "Enter") {
-//         // ....
-//     }
-// });
+async function searchPokemon() {
+  let inputField = document.getElementById('inputField').value.toLowerCase();
+      for (let i = 0; i < pokemonList.results.length; i++) {
+        if (pokemonList.results[i].name.includes(inputField)) {
+          currentPokemon = pokemonList.results[i].name;
+          document.getElementById('pokedex').innerHTML = ``;
+          await loadPokemon();
+          await loadPokemonSpecies();
+          renderPokemon(i);
+          insertElements(i);
+          setCardColor(i);
+        }
+      }
+    }

@@ -84,7 +84,8 @@ header {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  padding: 10vh 5vw;
+  min-height: 150vh;
+  padding: 10vh 5vw 10vh 10vh;
   margin-top: 25vh;
 }
 
