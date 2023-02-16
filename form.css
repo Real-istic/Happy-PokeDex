@@ -1,10 +1,10 @@
 .input {
 	position: relative;
+	display: flex;
 	font-size: 1.5em;
 	/* background: linear-gradient(21deg, #10abff, #1beabd); */
 	background-size: 100% 100%;
 	padding: 5px;
-	display: inline-block;
 	border-radius: 9999em;
 	box-shadow: 0px 0px 20px 15px #00ffff59;
 	background-size: 250% 250%;
@@ -54,4 +54,13 @@
 
 .input-field {
     background-color: transparent;
+}
+
+.input img{
+	width: 50px;
+	object-fit: cover;
+	cursor: pointer;
+	/* padding: 5px; */
+	margin: 5px;
+	
 }

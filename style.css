@@ -64,11 +64,11 @@ header {
   animation: glowImage 0.8s ease-in-out infinite alternate;
   /* color: #e0dfdc; */
   /* background: #556677; */
-  text-shadow: 0 -1px 0 #fef100, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a,
-    0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222,
-    0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a,
-    0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212,
-    0 22px 30px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 -1px 0 #fef100, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c,
+    0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424,
+    0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c,
+    0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414,
+    0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
 }
 
 .below-header {
@@ -84,8 +84,8 @@ header {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  min-height: 150vh;
-  padding: 10vh 5vw 10vh 10vh;
+  /* min-height: 350vh; */
+  padding: 10vh 5vw 20vh 8vw;
   margin-top: 25vh;
 }
 
@@ -114,13 +114,10 @@ header {
 /* below will be stored in an onclick function */
 
 .pokeMon:hover {
-  /* position: absolute; */
   transform: rotateX(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px) scale(1.3);
   box-shadow: 0px 0px 25px 20px rgb(0, 255, 213);
-  z-index: 1;
+  z-index: 2;
   transition: all 250ms ease;
-  /* top: 45%; */
-  /* left: 40%; */
   filter: blur(0px);
 }
 
@@ -185,7 +182,7 @@ span img {
   transition: 120ms all ease-in-out;
 }
 
-.get-infos{
+.get-infos {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,7 +192,7 @@ span img {
   background-color: transparent;
 }
 
-.get-infos img{
+.get-infos img {
   object-fit: cover;
   width: 87%;
   /* margin-top: 10px; */
@@ -255,6 +252,7 @@ span img {
 .active {
   color: #000000 !important;
   transition: all 150ms ease-in-out;
+  display: flex!important;
 }
 
 .about-tab {
@@ -313,7 +311,7 @@ span img {
   text-align: center;
   animation: glowBar 1s linear infinite alternate;
   transition: 300ms all ease-in-out;
-  overflow: visible!important;
+  overflow: visible !important;
 }
 
 .bg-hp {
@@ -346,10 +344,8 @@ span img {
   position: absolute;
   top: 0;
   padding-top: 10px;
-  display: flex !important;
-  /* row-gap: 20px; */
+  display: none;
   flex-wrap: wrap !important;
-  overflow: hidden !important;
   height: 100% !important;
   width: 100% !important;
   overflow-y: scroll !important;
@@ -375,7 +371,7 @@ span img {
 }
 
 .evo-tab {
-  display: flex !important;
+  display: none;
   align-items: center !important;
   justify-content: center;
   height: 100%;
@@ -469,4 +465,36 @@ span img {
 .loader img {
   width: 200px;
   object-fit: cover;
+}
+
+@media (max-width: 550px) {
+
+  header{
+    height: auto;
+    padding: 2vh 0 2vh 0;
+    width: 100%;
+  }
+
+  .header-left{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #pokedex {
+    padding: 2vh 2vw 20vh 5vh;
+    margin-top: -10vh;
+  }
+
+  .pokeMon{
+    margin-top: 50px;
+    z-index: 2;
+  }
+
+  .pokeMon:hover {
+    transform: rotateX(0deg) rotateZ(0deg) translate3d(-20px, 0px, 10px);
+  }
 }

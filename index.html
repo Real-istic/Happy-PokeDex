@@ -25,8 +25,9 @@
     </header>
     <form class="below-header" for="">
         <span class="input">
-            <input onkeyup="searchPokemon()" id="inputField" class="input-field" type="text" required placeholder="Search for your Pokemon">
+            <input onkeydown="if(event.keyCode==13){event.preventDefault(); searchPokemon()}"  id="inputField" class="input-field" type="text" minlength="0 || 2" required placeholder="Search for your Pokemon">
             <span></span>	
+            <img onclick="searchPokemon()" src="img/glass.png" alt="">
         </span>
     </form>
     <div id="pokedex"></div>

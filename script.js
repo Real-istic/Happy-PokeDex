@@ -5,11 +5,8 @@ let pokemonSpecies;
 let pokeImage;
 let evolutionChain;
 let count = 0;
-// let iCount = 0;
 let isLoading = false;
-
-
-
+let search = false;
 
 function onLoad() {
   iteratePokemonList()
@@ -25,7 +22,6 @@ async function iteratePokemonList() {
 
   for (let i = count; i < (count + 20); (i++)) {
     currentPokemon = pokemonList.results[i].name;
-    // iCount = i;
     await loadPokemon();
     await loadPokemonSpecies();
     renderPokemon(i);
@@ -42,14 +38,15 @@ async function iteratePokemonList() {
 }
 
 window.addEventListener('scroll', function () {
-  iterateNextPokemonList();
+  if (search!=true) {
+    iterateNextPokemonList();
+  }
 });
 
 async function iterateNextPokemonList() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
     isLoading = true;
     count += 20;
-    // iCount +=20;
     await iteratePokemonList()
     isLoading = false;
   }
@@ -72,7 +69,7 @@ function renderPokemon(i) {
   pokeImage = pokemonData.sprites.other['official-artwork'].front_default;
   let PokeDex = document.getElementById('pokedex');
   PokeDex.innerHTML +=/*html*/ `
-      <div onclick="" id="pokeMon${i}" class="pokeMon">
+      <div onclick="zoomCard(${i})" id="pokeMon${i}" class="pokeMon">
           <h2 class="pokemonName"><img class="poke-ball" src="img/Pokeball3.png" alt="">${PokeName}</h2>
           <div id="elements${i}" class="elements">
           </div>
@@ -316,16 +313,32 @@ function checkLoading() {
 }
 
 async function searchPokemon() {
+  search = true;
+  window.removeEventListener('scroll', iterateNextPokemonList);
   let inputField = document.getElementById('inputField').value.toLowerCase();
-      for (let i = 0; i < pokemonList.results.length; i++) {
-        if (pokemonList.results[i].name.includes(inputField)) {
-          currentPokemon = pokemonList.results[i].name;
-          document.getElementById('pokedex').innerHTML = ``;
-          await loadPokemon();
-          await loadPokemonSpecies();
-          renderPokemon(i);
-          insertElements(i);
-          setCardColor(i);
-        }
+  let pokedex = document.getElementById('pokedex');
+  pokedex.innerHTML = ``;
+  if (inputField == ("")) {
+    search = false;
+    onLoad();
+  }
+  if (inputField.length >= 2) {
+    search = true;
+    for (let i = 0; i < pokemonList.results.length; i++) {
+      if (pokemonList.results[i].name.includes(inputField)) {
+        currentPokemon = pokemonList.results[i].name;
+
+        await loadPokemon();
+        await loadPokemonSpecies();
+        renderPokemon(i);
+        insertElements(i);
+        setCardColor(i);
       }
     }
+  }
+}
+
+// function zoomCard(i){
+//   let pokeCard = document.getElementById('pokeMon'+i);
+//   pokeCard.classList.add('pokeMon-zoom');
+// }
