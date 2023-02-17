@@ -2,6 +2,7 @@ let currentPokemon;
 let pokemonList;
 let pokemonData;
 let pokemonSpecies;
+let currentPokemonId;
 let pokeImage;
 let evolutionChain;
 let count = 0;
@@ -110,8 +111,8 @@ function setCardColor(i) {
 async function getInfos(i) {
   currentPokemon = pokemonList.results[i].name;
 
-    await animatePokeball(i)
-    setTimeout(async function () {
+  await animatePokeball(i)
+  setTimeout(async function () {
     await loadPokemon();
     await loadPokemonSpecies();
     await loadEvolutionChain();
@@ -354,22 +355,26 @@ function insertMoves(i) {
 
 async function searchPokemon() {
   search = true;
+  isLoading = true;
+  checkLoading();
   count = 0;
   await loadPokemonList();
   window.removeEventListener('scroll', iterateNextPokemonList);
   let inputField = document.getElementById('inputField').value.toLowerCase();
   let pokedex = document.getElementById('pokedex');
   pokedex.innerHTML = ``;
-  checkSearchCircumstances(inputField)
+  await checkSearchCircumstances(inputField);
+  isLoading = false;
+  checkLoading();
 }
 
-async function checkSearchCircumstances(inputField){
+async function checkSearchCircumstances(inputField) {
   if (inputField == ("")) {
     search = false;
     onLoad();
     currentPokemon = "bulbasaur";
   }
-  if (inputField.length >= 2) {
+  if (inputField.length >= 1) {
     search = true;
     for (let i = 0; i < pokemonList.results.length; i++) {
       if (pokemonList.results[i].name.includes(inputField)) {
