@@ -12,10 +12,27 @@ function onLoad() {
   iteratePokemonList()
 }
 
-async function loadPokemonList(){
+async function loadPokemonList() {
   let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
   pokemonList = await response.json();
+}
+
+async function loadPokemon() {
+  let url = `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`;
+  let response = await fetch(url);
+  pokemonData = await response.json();
+}
+
+async function loadPokemonSpecies() {
+  let url = `https://pokeapi.co/api/v2/pokemon-species/${currentPokemon}`;
+  let response = await fetch(url);
+  pokemonSpecies = await response.json();
+}
+
+async function loadEvolutionChain() {
+  let response = await fetch(pokemonSpecies.evolution_chain.url);
+  evolutionChain = await response.json();
 }
 
 async function iteratePokemonList() {
@@ -33,11 +50,26 @@ async function iteratePokemonList() {
   checkLoading()
 }
 
+// --- initiator to load more PokeCards if bottom part of the Page is reached --- //
+
 window.addEventListener('scroll', function () {
   if (search != true) {
     iterateNextPokemonList();
   }
 });
+
+// --- block page with a cute Pokemon if Data is loading --- //
+
+function checkLoading() {
+  if (isLoading) {
+    document.querySelector(".loader").style.visibility = "unset";
+    setTimeout(checkLoading, 200);
+  } else {
+    document.querySelector(".loader").style.visibility = "hidden";
+  }
+}
+
+// ------------------------------------------------------------------------------- //
 
 async function iterateNextPokemonList() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
@@ -48,17 +80,7 @@ async function iterateNextPokemonList() {
   }
 }
 
-async function loadEvolutionChain() {
-  let response = await fetch(pokemonSpecies.evolution_chain.url);
-  evolutionChain = await response.json();
-}
-
-async function loadPokemon() {
-  let url = `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`;
-  let response = await fetch(url);
-  pokemonData = await response.json();
-}
-
+// --- render the Card Base --- //
 
 function renderPokemon(i) {
   let PokeName = currentPokemon.charAt(0).toUpperCase() + currentPokemon.slice(1);
@@ -75,6 +97,36 @@ function renderPokemon(i) {
           <button id="pokeBall${i}" onclick="getInfos(${i})" class="get-infos"><img src="img/animatedpokeball.gif" alt=""></button>
           </div>
       </div>`;
+}
+
+function setCardColor(i) {
+  let pokeCard = document.getElementById('pokeMon' + i);
+  let pokeType = pokemonData.types[0].type.name;
+  pokeCard.classList.add('back-' + pokeType);
+}
+
+// --- Click the Pokeball to load and get Infos --- //
+
+async function getInfos(i) {
+  currentPokemon = pokemonList.results[i].name;
+
+    await animatePokeball(i)
+    setTimeout(async function () {
+    await loadPokemon();
+    await loadPokemonSpecies();
+    await loadEvolutionChain();
+    insertElements(i);
+    insertInfoContainer(i);
+    insertStats(i);
+    insertAbout(i);
+    insertMoves(i);
+    await checkEvolution(i);
+  }, 150);
+}
+
+async function animatePokeball(i) {
+  let pokeBall = document.getElementById('pokeBall' + i)
+  pokeBall.classList.add('animate-pokeball');
 }
 
 function insertElements(i) {
@@ -94,40 +146,6 @@ function animateElements(i) {
   setTimeout(function () {
     elementBox.classList.add('animate-element');
   }, 150);
-}
-
-function setCardColor(i) {
-  let pokeCard = document.getElementById('pokeMon' + i);
-  let pokeType = pokemonData.types[0].type.name;
-  pokeCard.classList.add('back-' + pokeType);
-}
-
-async function loadPokemonSpecies() {
-  let url = `https://pokeapi.co/api/v2/pokemon-species/${currentPokemon}`;
-  let response = await fetch(url);
-  pokemonSpecies = await response.json();
-}
-
-async function getInfos(i) {
-  currentPokemon = pokemonList.results[i].name;
-
-  await animatePokeball(i)
-  setTimeout(async function () {
-    await loadPokemon();
-    await loadPokemonSpecies();
-    await loadEvolutionChain();
-    insertElements(i);
-    insertInfoContainer(i);
-    insertStats(i);
-    insertAbout(i);
-    insertMoves(i);
-    await insertEvolution(i);
-  }, 150);
-}
-
-async function animatePokeball(i) {
-  let pokeBall = document.getElementById('pokeBall' + i)
-  pokeBall.classList.add('animate-pokeball');
 }
 
 function insertInfoContainer(i) {
@@ -180,8 +198,18 @@ function animateTabPane(clickedTab) {
   document.querySelector(clickedTab.dataset.bsTarget).classList.remove('animate-scale1', 'animate-scale0');
 }
 
-/* -------------- chart below ------------- */
+// --- filling the Tabs below --- //
 
+function insertAbout(i) {
+  let about = pokemonSpecies.flavor_text_entries[1].flavor_text;
+  let aboutField = document.getElementById('about-tab-pane' + i);
+
+  aboutField.innerHTML = `
+  <span class="about">${about.replace(/\f/g, ' ')} </span>
+  `;
+}
+
+// --- stat-chart-Tab below --- //
 
 function insertStats(i) {
   let statsTab = document.getElementById('stats-tab-pane' + i);
@@ -209,28 +237,9 @@ function insertStats(i) {
   `;
 }
 
-/* --------------- chart above ---------------- */
+// --- check if different evolutions exist, then continue filling tabs --- //
 
-function insertAbout(i) {
-  let about = pokemonSpecies.flavor_text_entries[1].flavor_text;
-  let aboutField = document.getElementById('about-tab-pane' + i);
-  aboutField.innerHTML = `
-  <span class="about">${about.replace(/\f/g, ' ')} </span>
-  `;
-}
-
-function insertMoves(i) {
-  let moveTab = document.getElementById('moves-tab-pane' + i);
-
-  for (let j = 0; j < pokemonData.moves.length; j++) {
-    const move = pokemonData.moves[j].move.name;
-    moveTab.innerHTML +=/*html*/ `
-    <span class="move">${move}</span>
-    `;
-  }
-}
-
-async function insertEvolution(i) {
+async function checkEvolution(i) {
   let evo1;
   let evo2;
   let evo3;
@@ -259,8 +268,8 @@ async function insertEvolution(i) {
 }
 
 async function insertEvolutionHTML(i, evo1, evo2, evo3) {
-
   let evo1Div = document.getElementById('evolution-tab-pane' + i);
+
   evo1Div.innerHTML +=/*html*/ `
      <h5 class="evo-name" id="evo1Div${i}">
      <div class="evo-div">
@@ -271,6 +280,7 @@ async function insertEvolutionHTML(i, evo1, evo2, evo3) {
      <h5 class="evo-name" id="evo2Div${i}"></h5>
      <h5 class="evo-name" id="evo3Div${i}"></h5>
     `;
+
   if (typeof evo2 !== 'undefined') {
     await insertEvolution2(i, evo2)
   }
@@ -292,6 +302,8 @@ function evolutionGlow(i, evo1, evo2, evo3) {
     }
   }
 }
+
+// --- inserts for the specific evolution images --- //
 
 async function insertEvolution2(i, evo2) {
   let evo2Div = document.getElementById('evo2Div' + i);
@@ -325,14 +337,20 @@ async function loadPokemonEvolution(evo) {
   }
 }
 
-function checkLoading() {
-  if (isLoading) {
-    document.querySelector(".loader").style.visibility = "unset";
-    setTimeout(checkLoading, 200);
-  } else {
-    document.querySelector(".loader").style.visibility = "hidden";
+// --- last Tab -> fill Move Tab --- //
+
+function insertMoves(i) {
+  let moveTab = document.getElementById('moves-tab-pane' + i);
+
+  for (let j = 0; j < pokemonData.moves.length; j++) {
+    const move = pokemonData.moves[j].move.name;
+    moveTab.innerHTML +=/*html*/ `
+    <span class="move">${move}</span>
+    `;
   }
 }
+
+// --- PokeMon-Search below --- //
 
 async function searchPokemon() {
   search = true;
@@ -342,6 +360,10 @@ async function searchPokemon() {
   let inputField = document.getElementById('inputField').value.toLowerCase();
   let pokedex = document.getElementById('pokedex');
   pokedex.innerHTML = ``;
+  checkSearchCircumstances(inputField)
+}
+
+async function checkSearchCircumstances(inputField){
   if (inputField == ("")) {
     search = false;
     onLoad();
@@ -352,7 +374,6 @@ async function searchPokemon() {
     for (let i = 0; i < pokemonList.results.length; i++) {
       if (pokemonList.results[i].name.includes(inputField)) {
         currentPokemon = pokemonList.results[i].name;
-        
         await loadPokemon();
         await loadPokemonSpecies();
         renderPokemon(i);
