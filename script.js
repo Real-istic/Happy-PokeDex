@@ -14,7 +14,7 @@ function onLoad() {
 }
 
 async function loadPokemonList() {
-  let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
+  let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1000`;
   let response = await fetch(url);
   pokemonList = await response.json();
 }
@@ -23,10 +23,11 @@ async function loadPokemon() {
   let url = `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`;
   let response = await fetch(url);
   pokemonData = await response.json();
+  currentPokemonId = pokemonData.id;
 }
 
 async function loadPokemonSpecies() {
-  let url = `https://pokeapi.co/api/v2/pokemon-species/${currentPokemon}`;
+  let url = `https://pokeapi.co/api/v2/pokemon-species/${currentPokemonId}`;
   let response = await fetch(url);
   pokemonSpecies = await response.json();
 }
@@ -51,7 +52,7 @@ async function iteratePokemonList() {
   checkLoading()
 }
 
-// --- initiator to load more PokeCards if bottom part of the Page is reached --- //
+// --- initiator to load more PokemonCards if bottom part of the Page is reached --- //
 
 window.addEventListener('scroll', function () {
   if (search != true) {
@@ -374,7 +375,7 @@ async function checkSearchCircumstances(inputField) {
     onLoad();
     currentPokemon = "bulbasaur";
   }
-  if (inputField.length >= 1) {
+  if (inputField.length >= 2) {
     search = true;
     for (let i = 0; i < pokemonList.results.length; i++) {
       if (pokemonList.results[i].name.includes(inputField)) {
