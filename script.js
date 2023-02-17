@@ -12,25 +12,21 @@ function onLoad() {
   iteratePokemonList()
 }
 
-async function iteratePokemonList() {
-  isLoading = true;
-  checkLoading()
-
+async function loadPokemonList(){
   let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1279`;
   let response = await fetch(url);
   pokemonList = await response.json();
+}
 
+async function iteratePokemonList() {
+  isLoading = true;
+  checkLoading();
+  await loadPokemonList();
   for (let i = count; i < (count + 20); (i++)) {
     currentPokemon = pokemonList.results[i].name;
     await loadPokemon();
     await loadPokemonSpecies();
     renderPokemon(i);
-    // insertElements(i);
-    // insertInfoContainer(i);
-    // insertStats(i);
-    // insertAbout(i);
-    // insertMoves(i);
-    // await insertEvolution(i);
     setCardColor(i);
   }
   isLoading = false;
@@ -126,7 +122,7 @@ async function getInfos(i) {
     insertAbout(i);
     insertMoves(i);
     await insertEvolution(i);
-  }, 00);
+  }, 150);
 }
 
 async function animatePokeball(i) {
@@ -340,6 +336,8 @@ function checkLoading() {
 
 async function searchPokemon() {
   search = true;
+  count = 0;
+  await loadPokemonList();
   window.removeEventListener('scroll', iterateNextPokemonList);
   let inputField = document.getElementById('inputField').value.toLowerCase();
   let pokedex = document.getElementById('pokedex');
@@ -354,11 +352,10 @@ async function searchPokemon() {
     for (let i = 0; i < pokemonList.results.length; i++) {
       if (pokemonList.results[i].name.includes(inputField)) {
         currentPokemon = pokemonList.results[i].name;
-
+        
         await loadPokemon();
         await loadPokemonSpecies();
         renderPokemon(i);
-        insertElements(i);
         setCardColor(i);
       }
     }

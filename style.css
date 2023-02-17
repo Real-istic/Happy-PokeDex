@@ -448,7 +448,7 @@ span img {
   position: fixed;
   top: 0vh;
   left: 0vw;
-  z-index: 0;
+  z-index: 2;
   height: 100%;
   width: 100%;
   display: flex;
