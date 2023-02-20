@@ -173,7 +173,7 @@ function insertElements(i) {
 }
 
 /**
- * swing-by-animation for the Elements if the pop in
+ * swing-by-animation for the Elements when they pop in
  * 
  * @param {*} i 
  */
