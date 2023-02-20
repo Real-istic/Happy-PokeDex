@@ -1,4 +1,32 @@
-let currentPokemon;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let currentPokemon;
 let pokemonList;
 let pokemonData;
 let pokemonSpecies;
@@ -15,7 +43,7 @@ function onLoad() {
 }
 
 async function loadPokemonList() {
-  let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&limit=1000`;
+  let url = `https://pokeapi.co/api/v2/pokemon/?offset=${count}&amp;limit=1000`;
   let response = await fetch(url);
   pokemonList = await response.json();
 }
@@ -42,7 +70,7 @@ async function iteratePokemonList() {
   isLoading = true;
   checkLoading();
   await loadPokemonList();
-  for (let i = count; i < (count + 20); (i++)) {
+  for (let i = count; i &lt; (count + 20); (i++)) {
     currentPokemon = pokemonList.results[i].name;
     await loadPokemon();
     await loadPokemonSpecies();
@@ -81,7 +109,7 @@ function checkLoading() {
  * 
  */
 async function iterateNextPokemonList() {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !isLoading) {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight &amp;&amp; !isLoading) {
     isLoading = true;
     count += 20;
     await iteratePokemonList()
@@ -99,16 +127,16 @@ function renderPokemon(i) {
   pokeImage = pokemonData.sprites.other['official-artwork'].front_default;
   let PokeDex = document.getElementById('pokedex');
   PokeDex.innerHTML +=/*html*/ `
-      <div id="pokeMon${i}" class="pokeMon">
-          <h2 class="pokemonName"><img class="poke-ball" src="img/Pokeball3.png" alt="">${PokeName}</h2>
-          <div id="elements${i}" class="elements">
-          </div>
-          <img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
-          <img id="pokemonImage" src="${pokeImage}" alt="">
-          <div class="info-container" id="info-container${i}">
-          <button id="pokeBall${i}" onclick="getInfos(${i})" class="get-infos"><img src="img/animatedpokeball.gif" alt=""></button>
-          </div>
-      </div>`;
+      &lt;div id="pokeMon${i}" class="pokeMon">
+          &lt;h2 class="pokemonName">&lt;img class="poke-ball" src="img/Pokeball3.png" alt="">${PokeName}&lt;/h2>
+          &lt;div id="elements${i}" class="elements">
+          &lt;/div>
+          &lt;img class="poke-ball-background" src="img/Pokeballbackground.svg" alt="">
+          &lt;img id="pokemonImage" src="${pokeImage}" alt="">
+          &lt;div class="info-container" id="info-container${i}">
+          &lt;button id="pokeBall${i}" onclick="getInfos(${i})" class="get-infos">&lt;img src="img/animatedpokeball.gif" alt="">&lt;/button>
+          &lt;/div>
+      &lt;/div>`;
 }
 
 /**
@@ -161,12 +189,12 @@ async function animatePokeball(i) {
  * @param {*} i specific Pokemon
  */
 function insertElements(i) {
-  for (let j = 0; j < pokemonData.types.length; j++) {
+  for (let j = 0; j &lt; pokemonData.types.length; j++) {
     const element = pokemonData.types[j].type.name;
     let elementIcon = icons[element]
     let elementBox = document.getElementById('elements' + i);
     elementBox.innerHTML +=/*html*/ `
-        <span> <img class="${element}" src="${elementIcon}" alt=""> ${element.charAt(0).toUpperCase() + pokemonData.types[j].type.name.slice(1)}</span>
+        &lt;span> &lt;img class="${element}" src="${elementIcon}" alt=""> ${element.charAt(0).toUpperCase() + pokemonData.types[j].type.name.slice(1)}&lt;/span>
         `;
   }
   animateElements(i)
@@ -191,30 +219,30 @@ function animateElements(i) {
  */
 function insertInfoContainer(i) {
   document.getElementById('info-container' + i).innerHTML =/*html*/ `
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#about-tab-pane${i}" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="statsTab${i}" data-bs-toggle="tab" data-bs-target="#stats-tab-pane${i}" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Stats</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="evoTab${i}" data-bs-toggle="tab" data-bs-target="#evolution-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Evolution</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="movesTab${i}" data-bs-toggle="tab" data-bs-target="#moves-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Moves</button>
-        </li>
-    </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane about-tab tab-pane-${i} fade show active animate-scale1" id="about-tab-pane${i}" role="tabpanel" tabindex="0">
-            </div>
-            <div class="tab-pane stats-tab tab-pane-${i} fade" id="stats-tab-pane${i}" role="tabpanel" tabindex="0">
-            </div>
-            <div class="tab-pane evo-tab tab-pane-${i} fade" id="evolution-tab-pane${i}" role="tabpanel" tabindex="0">
-            </div>
-            <div class="tab-pane move-tab tab-pane-${i} fade" id="moves-tab-pane${i}" role="tabpanel" tabindex="0">
-            </div>
-        </div>`;
+    &lt;ul class="nav nav-tabs" id="myTab" role="tablist">
+        &lt;li class="nav-item" role="presentation">
+            &lt;button onclick="activateTab(${i})" class="nav-link nav-link-${i} active" id="aboutTab${i}" data-bs-toggle="tab" data-bs-target="#about-tab-pane${i}" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">About&lt;/button>
+        &lt;/li>
+        &lt;li class="nav-item" role="presentation">
+            &lt;button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="statsTab${i}" data-bs-toggle="tab" data-bs-target="#stats-tab-pane${i}" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Stats&lt;/button>
+        &lt;/li>
+        &lt;li class="nav-item" role="presentation">
+            &lt;button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="evoTab${i}" data-bs-toggle="tab" data-bs-target="#evolution-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Evolution&lt;/button>
+        &lt;/li>
+        &lt;li class="nav-item" role="presentation">
+            &lt;button onclick="activateTab(${i})" class="nav-link nav-link-${i}" id="movesTab${i}" data-bs-toggle="tab" data-bs-target="#moves-tab-pane${i}" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Moves&lt;/button>
+        &lt;/li>
+    &lt;/ul>
+        &lt;div class="tab-content" id="myTabContent">
+            &lt;div class="tab-pane about-tab tab-pane-${i} fade show active animate-scale1" id="about-tab-pane${i}" role="tabpanel" tabindex="0">
+            &lt;/div>
+            &lt;div class="tab-pane stats-tab tab-pane-${i} fade" id="stats-tab-pane${i}" role="tabpanel" tabindex="0">
+            &lt;/div>
+            &lt;div class="tab-pane evo-tab tab-pane-${i} fade" id="evolution-tab-pane${i}" role="tabpanel" tabindex="0">
+            &lt;/div>
+            &lt;div class="tab-pane move-tab tab-pane-${i} fade" id="moves-tab-pane${i}" role="tabpanel" tabindex="0">
+            &lt;/div>
+        &lt;/div>`;
 }
 
 /**
@@ -259,7 +287,7 @@ function insertAbout(i) {
   let aboutField = document.getElementById('about-tab-pane' + i);
 
   aboutField.innerHTML = `
-  <span class="about">${about.replace(/\f/g, ' ')} </span>
+  &lt;span class="about">${about.replace(/\f/g, ' ')} &lt;/span>
   `;
 }
 
@@ -271,26 +299,26 @@ function insertAbout(i) {
 function insertStats(i) {
   let statsTab = document.getElementById('stats-tab-pane' + i);
   statsTab.innerHTML =/*html*/ `
-  <div class="chart-box">
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-hp" style="width: ${pokemonData.stats[0].base_stat * 0.7}%">${pokemonData.stats[0].base_stat} - HP</div>
-      </div>
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-attack" style="width: ${pokemonData.stats[1].base_stat * 0.7}%;">${pokemonData.stats[1].base_stat} - ATK</div>
-      </div>
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-defense" style="width: ${pokemonData.stats[2].base_stat * 0.7}%;">${pokemonData.stats[2].base_stat} - DEF</div>
-      </div>
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-special-attack" style="width: ${pokemonData.stats[3].base_stat * 0.7}%; padding-bottom: 1px;">${pokemonData.stats[3].base_stat} - S-ATK</div>
-      </div> 
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-special-defense" style="width: ${pokemonData.stats[4].base_stat * 0.7}%; padding-bottom: 0px;">${pokemonData.stats[4].base_stat} - S-DEF</div>
-      </div> 
-      <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-speed" style="width: ${pokemonData.stats[5].base_stat * 0.7}%;">${pokemonData.stats[5].base_stat} - SPD</div>
-      </div> 
-  </div>
+  &lt;div class="chart-box">
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-hp" style="width: ${pokemonData.stats[0].base_stat * 0.7}%">${pokemonData.stats[0].base_stat} - HP&lt;/div>
+      &lt;/div>
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-attack" style="width: ${pokemonData.stats[1].base_stat * 0.7}%;">${pokemonData.stats[1].base_stat} - ATK&lt;/div>
+      &lt;/div>
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-defense" style="width: ${pokemonData.stats[2].base_stat * 0.7}%;">${pokemonData.stats[2].base_stat} - DEF&lt;/div>
+      &lt;/div>
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-special-attack" style="width: ${pokemonData.stats[3].base_stat * 0.7}%; padding-bottom: 1px;">${pokemonData.stats[3].base_stat} - S-ATK&lt;/div>
+      &lt;/div> 
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-special-defense" style="width: ${pokemonData.stats[4].base_stat * 0.7}%; padding-bottom: 0px;">${pokemonData.stats[4].base_stat} - S-DEF&lt;/div>
+      &lt;/div> 
+      &lt;div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+          &lt;div class="progress-bar bg-speed" style="width: ${pokemonData.stats[5].base_stat * 0.7}%;">${pokemonData.stats[5].base_stat} - SPD&lt;/div>
+      &lt;/div> 
+  &lt;/div>
   `;
 }
 
@@ -305,22 +333,22 @@ async function checkEvolution(i) {
   let evo3;
   await loadEvolutionChain();
 
-  if (evolutionChain.chain && evolutionChain.chain.species) {
+  if (evolutionChain.chain &amp;&amp; evolutionChain.chain.species) {
     evo1 = await evolutionChain.chain.species.name;
   }
 
-  if (evolutionChain.chain &&
-    evolutionChain.chain.evolves_to &&
-    evolutionChain.chain.evolves_to[0] &&
+  if (evolutionChain.chain &amp;&amp;
+    evolutionChain.chain.evolves_to &amp;&amp;
+    evolutionChain.chain.evolves_to[0] &amp;&amp;
     evolutionChain.chain.evolves_to[0].species) {
     evo2 = await evolutionChain.chain.evolves_to[0].species.name;
   }
 
-  if (evolutionChain.chain &&
-    evolutionChain.chain.evolves_to &&
-    evolutionChain.chain.evolves_to[0] &&
-    evolutionChain.chain.evolves_to[0].evolves_to &&
-    evolutionChain.chain.evolves_to[0].evolves_to[0] &&
+  if (evolutionChain.chain &amp;&amp;
+    evolutionChain.chain.evolves_to &amp;&amp;
+    evolutionChain.chain.evolves_to[0] &amp;&amp;
+    evolutionChain.chain.evolves_to[0].evolves_to &amp;&amp;
+    evolutionChain.chain.evolves_to[0].evolves_to[0] &amp;&amp;
     evolutionChain.chain.evolves_to[0].evolves_to[0].species) {
     evo3 = await evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
   }
@@ -340,14 +368,14 @@ async function insertEvolutionHTML(i, evo1, evo2, evo3) {
   let evo1Div = document.getElementById('evolution-tab-pane' + i);
 
   evo1Div.innerHTML +=/*html*/ `
-     <h5 class="evo-name" id="evo1Div${i}">
-     <div class="evo-div">
-     <img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
+     &lt;h5 class="evo-name" id="evo1Div${i}">
+     &lt;div class="evo-div">
+     &lt;img id="evoImage1-${i}" class="evo-image" src="${await loadPokemonEvolution(evo1)}" alt="">
      ${evo1}
-     <div class="evo-div">
-     </h5>
-     <h5 class="evo-name" id="evo2Div${i}"></h5>
-     <h5 class="evo-name" id="evo3Div${i}"></h5>
+     &lt;div class="evo-div">
+     &lt;/h5>
+     &lt;h5 class="evo-name" id="evo2Div${i}">&lt;/h5>
+     &lt;h5 class="evo-name" id="evo3Div${i}">&lt;/h5>
     `;
 
   if (typeof evo2 !== 'undefined') {
@@ -390,11 +418,11 @@ function evolutionGlow(i, evo1, evo2, evo3) {
 async function insertEvolution2(i, evo2) {
   let evo2Div = document.getElementById('evo2Div' + i);
   evo2Div.innerHTML +=/*html*/ `
-      <img class="arrow-image" src="img/arrowright.png" alt="">
-    <div class="evo-div">
-      <img id="evoImage2-${i}" class="evo-image" src="${await loadPokemonEvolution(evo2)}" alt="">
+      &lt;img class="arrow-image" src="img/arrowright.png" alt="">
+    &lt;div class="evo-div">
+      &lt;img id="evoImage2-${i}" class="evo-image" src="${await loadPokemonEvolution(evo2)}" alt="">
       ${evo2}
-    </div>
+    &lt;/div>
   `;
 }
 
@@ -407,11 +435,11 @@ async function insertEvolution2(i, evo2) {
 async function insertEvolution3(i, evo3) {
   let evo3Div = document.getElementById('evo3Div' + i);
   evo3Div.innerHTML +=/*html*/ `
-    <img class="arrow-image" src="img/arrowright.png" alt="">
-   <div class="evo-div">
-    <img id="evoImage3-${i}" class="evo-image" src="${await loadPokemonEvolution(evo3)}" alt="">
+    &lt;img class="arrow-image" src="img/arrowright.png" alt="">
+   &lt;div class="evo-div">
+    &lt;img id="evoImage3-${i}" class="evo-image" src="${await loadPokemonEvolution(evo3)}" alt="">
     ${evo3}
-  </div>
+  &lt;/div>
     `;
 }
 
@@ -440,10 +468,10 @@ async function loadPokemonEvolution(evo) {
 function insertMoves(i) {
   let moveTab = document.getElementById('moves-tab-pane' + i);
 
-  for (let j = 0; j < pokemonData.moves.length; j++) {
+  for (let j = 0; j &lt; pokemonData.moves.length; j++) {
     const move = pokemonData.moves[j].move.name;
     moveTab.innerHTML +=/*html*/ `
-    <span class="move">${move}</span>
+    &lt;span class="move">${move}&lt;/span>
     `;
   }
 }
@@ -485,7 +513,7 @@ async function checkSearchCircumstances(inputField) {
   }
   if (inputField.length >= 2) {
     search = true;
-    for (let i = 0; i < pokemonList.results.length; i++) {
+    for (let i = 0; i &lt; pokemonList.results.length; i++) {
       if (pokemonList.results[i].name.includes(inputField)) {
         currentPokemon = pokemonList.results[i].name;
         await loadPokemon();
@@ -497,3 +525,26 @@ async function checkSearchCircumstances(inputField) {
   }
 }
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateTab">activateTab</a></li><li><a href="global.html#animateElements">animateElements</a></li><li><a href="global.html#animatePokeball">animatePokeball</a></li><li><a href="global.html#animateTabPane">animateTabPane</a></li><li><a href="global.html#checkEvolution">checkEvolution</a></li><li><a href="global.html#checkLoading">checkLoading</a></li><li><a href="global.html#checkSearchCircumstances">checkSearchCircumstances</a></li><li><a href="global.html#evolutionGlow">evolutionGlow</a></li><li><a href="global.html#getInfos">getInfos</a></li><li><a href="global.html#insertAbout">insertAbout</a></li><li><a href="global.html#insertElements">insertElements</a></li><li><a href="global.html#insertEvolution2">insertEvolution2</a></li><li><a href="global.html#insertEvolution3">insertEvolution3</a></li><li><a href="global.html#insertEvolutionHTML">insertEvolutionHTML</a></li><li><a href="global.html#insertInfoContainer">insertInfoContainer</a></li><li><a href="global.html#insertMoves">insertMoves</a></li><li><a href="global.html#insertStats">insertStats</a></li><li><a href="global.html#iterateNextPokemonList">iterateNextPokemonList</a></li><li><a href="global.html#loadPokemonEvolution">loadPokemonEvolution</a></li><li><a href="global.html#renderPokemon">renderPokemon</a></li><li><a href="global.html#searchPokemon">searchPokemon</a></li><li><a href="global.html#setCardColor">setCardColor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 17:48:47 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

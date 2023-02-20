@@ -14,6 +14,10 @@ body {
   overflow-x: hidden;
 }
 
+p {
+text-align: center;
+}
+
 #backgroundImage {
   position: absolute;
   height: 100%;
@@ -136,13 +140,13 @@ header {
 }
 
 .animate-element {
-  transform: scaleX(1)!important;
-  transition: 450ms cubic-bezier(0, -1.89, 1, 0.29);;
+  transform: scaleX(1) !important;
+  transition: 450ms cubic-bezier(0, -1.89, 1, 0.29);
 }
 
 .elements {
-  transition: 450ms cubic-bezier(0, -1.89, 1, 0.29);;
-  transform: scaleX(0.0);
+  transition: 450ms cubic-bezier(0, -1.89, 1, 0.29);
+  transform: scaleX(0);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -156,7 +160,7 @@ header {
   align-items: center;
   color: rgb(0, 0, 0);
   padding: 5px 5px 5px 3px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   width: 95px;
   font-weight: bold;
   font-size: 20px;
@@ -185,7 +189,7 @@ span img {
 
 .get-infos {
   transform: scale(1);
-  transition: 250ms cubic-bezier(0.07,-0.35, 1, 1.34);
+  transition: 250ms cubic-bezier(0.07, -0.35, 1, 1.34);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -242,7 +246,7 @@ span img {
 
 .animate-pokeball {
   transform: scale(0);
-  transition: 250ms cubic-bezier(0.07,-0.35, 1, 1.34);
+  transition: 250ms cubic-bezier(0.07, -0.35, 1, 1.34);
 }
 
 .nav-link {
@@ -252,13 +256,13 @@ span img {
   font-weight: bold !important;
   cursor: pointer;
   transition: all 150ms ease-in-out;
-  transform: scaleX(1)!important;
+  transform: scaleX(1) !important;
 }
 
 .active {
   color: #000000 !important;
   transform: scaleX(0);
-  transition: 150ms ease-in-out!important;
+  transition: 150ms ease-in-out !important;
   display: flex !important;
 }
 
@@ -271,7 +275,7 @@ span img {
 }
 
 .about {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   background-color: #0000000e;
   border-radius: 10px;
@@ -281,12 +285,10 @@ span img {
 
 /*---------- CHART CLASSES ----------*/
 
-.stats-tab{
-
+.stats-tab {
 }
 
 .chart-box {
-  
   /* padding-top: 5px; */
   display: flex;
   flex-direction: column;
@@ -346,7 +348,6 @@ span img {
   /* border: 2px outset yellow; */
 }
 
-
 /* --------------- END CHART CLASSES ----------*/
 
 .move-tab {
@@ -400,7 +401,7 @@ span img {
   display: flex;
   align-items: center;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   transition: 100ms all ease-in-out;
 }
 
@@ -468,13 +469,13 @@ span img {
   object-fit: cover;
 }
 
-.animate-scale0{
-  transform: scaleX(0)!important;
+.animate-scale0 {
+  transform: scaleX(0) !important;
   transition: 100ms all ease-in-out !important;
 }
 
-.animate-scale1{
-  transform: scaleX(1)!important;
+.animate-scale1 {
+  transform: scaleX(1) !important;
   transition: 100ms all ease-in-out !important;
 }
 
@@ -495,11 +496,11 @@ span img {
   }
 
   .input {
-    font-size: 1.2em!important;
-    }
+    font-size: 1.2em !important;
+  }
 
   #pokedex {
-    padding: 2vh 2vw 20vh 5vh;
+    padding: 5vh 2vw 20vh 5vh;
     margin-top: -10vh;
   }
 
